@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ClubDeportivo.WinForms.Forms
 {
-    public partial class FrmMenuPrincipal : Form
+    public partial class FrmVencimientosHoy : Form
     {
-        public FrmMenuPrincipal()
+        public FrmVencimientosHoy()
         {
             InitializeComponent();
         }
