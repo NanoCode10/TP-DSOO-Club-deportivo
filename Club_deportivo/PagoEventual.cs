@@ -21,7 +21,7 @@ namespace Club_deportivo
             this.idNoSocio = idNoSocio;
             this.Monto = monto;
             this.FechaPago = DateTime.Now;
-            Console.WriteLine($"[PagoEventual] Pago #{IdPago} registrado por NoSocio #{idNoSocio} por ${Monto}.");
         }
     }
 }
+
