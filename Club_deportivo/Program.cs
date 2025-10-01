@@ -14,6 +14,7 @@ namespace Club_deportivo
            private static List<Cuota> cuotas = new List<Cuota>();
            private static List<Actividad> actividades = new List<Actividad>();
 
+           private static int nextCuotaId = 1;
 
            public static Socio RegistrarSocio(string nombre, int dni) {
 
@@ -45,4 +46,5 @@ namespace Club_deportivo
     }
 
 }
+
 
