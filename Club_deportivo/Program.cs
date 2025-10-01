@@ -28,7 +28,21 @@ namespace Club_deportivo
                 noSocios.Add(nuevoNoSocio)
                 return nuevoNoSocio;
             }
+
+            public static void CobrarCuota(int idSocio, decimal monto) {
+
+                Socio socioSeleccionado = socios.FirstOrDefault(s => s.IdSocio == idSocio);
+
+                DateTime fechaVencimiento = DateTime.Now.AddDays(30);
+                Cuota nuevaCuota = new Cuota(nextCuotaId++, idSocio, fechaVencimiento, monto);
+
+                cuotas.Add(nuevaCuota);
+                socioSeleccionado.Cuotas.Add(nuevaCuota);
+
+                socioSeleccionado.PagarCuota(nuevaCuota);
+            }
         }
     }
 
 }
+
