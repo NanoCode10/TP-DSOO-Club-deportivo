@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using ClubDeportivo.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClubDeportivo.Data;
 
@@ -7,24 +7,30 @@ public class ClubContext : DbContext
 {
     public ClubContext(DbContextOptions<ClubContext> options) : base(options) { }
 
+    public DbSet<Persona> Personas => Set<Persona>();
     public DbSet<Socio> Socios => Set<Socio>();
     public DbSet<NoSocio> NoSocios => Set<NoSocio>();
-    public DbSet<Cuota> Cuotas => Set<Cuota>();
     public DbSet<Carnet> Carnets => Set<Carnet>();
+    public DbSet<Cuota> Cuotas => Set<Cuota>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Socio>().HasKey(x => x.IdSocio);
-        modelBuilder.Entity<NoSocio>().HasKey(x => x.IdNoSocio);
-        modelBuilder.Entity<Cuota>().HasKey(x => x.IdCuota);
-        modelBuilder.Entity<Carnet>().HasKey(x => x.IdCarnet);
+        // Mapeo mínimo (ajustaremos 1:1 al UML cuando entremos a datos)
+        modelBuilder.Entity<Persona>(b =>
+        {
+            b.HasKey(p => p.Id);
+            b.Property(p => p.Dni).IsRequired().HasMaxLength(20);
+            b.Property(p => p.Nombre).IsRequired().HasMaxLength(100);
+            b.Property(p => p.Apellido).IsRequired().HasMaxLength(100);
+        });
 
-        // Herencia Persona -> Socio/NoSocio (TPT simple)
-        modelBuilder.Entity<Persona>().HasKey(p => p.Dni);
-        modelBuilder.Entity<Socio>().ToTable("Socio");
-        modelBuilder.Entity<NoSocio>().ToTable("NoSocio");
-        modelBuilder.Entity<Persona>().ToTable("Persona");
+        modelBuilder.Entity<Socio>(b =>
+        {
+            b.HasMany(s => s.Cuotas).WithOne().HasForeignKey(c => c.SocioId);
+            b.HasOne(s => s.Carnet).WithOne().HasForeignKey<Carnet>(c => c.SocioId);
+        });
 
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Carnet>(b => b.HasKey(c => c.Id));
+        modelBuilder.Entity<Cuota>(b => b.HasKey(c => c.Id));
     }
 }

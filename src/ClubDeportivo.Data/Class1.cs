@@ -1,5 +1,7 @@
-﻿namespace ClubDeportivo.Data;
-public class Class1
+﻿namespace ClubDeportivo.Data
 {
+    public class Class1
+    {
 
+    }
 }

@@ -2,7 +2,8 @@ namespace ClubDeportivo.Core.Entities;
 
 public class Carnet
 {
-    public int IdCarnet { get; set; }
-    public DateTime FechaEmision { get; set; }
-    public DateTime FechaVencimiento { get; set; }
+    public int Id { get; set; }
+    public int SocioId { get; set; }
+    public DateOnly FechaEmision { get; set; }
+    public DateOnly FechaVencimiento { get; set; }
 }
