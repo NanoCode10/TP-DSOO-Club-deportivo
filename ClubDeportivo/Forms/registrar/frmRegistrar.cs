@@ -95,8 +95,8 @@ namespace ClubDeportivo.Forms.registrar
                         FechaDeRegistro = DateOnly.FromDateTime(DateTime.Today)
                     };
 
-                    // Llamamos a Datos.NoSocios
-                    var repo = new NoSocios();
+                    // Llamamos a Datos.NoSocio
+                    var repo = new NoSocio();
                     respuesta = repo.Nuevo_NoSocio(n);
                 }
 

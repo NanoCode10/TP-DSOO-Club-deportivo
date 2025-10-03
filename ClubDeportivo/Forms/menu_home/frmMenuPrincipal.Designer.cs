@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            btnRegistrar = new Button();
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
             SuspendLayout();
             // 
-            // button1
+            // btnRegistrar
             // 
-            button1.Location = new Point(284, 70);
-            button1.Name = "button1";
-            button1.Size = new Size(181, 23);
-            button1.TabIndex = 0;
-            button1.Text = "Registrar";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnRegistrar.Location = new Point(284, 70);
+            btnRegistrar.Name = "btnRegistrar";
+            btnRegistrar.Size = new Size(181, 23);
+            btnRegistrar.TabIndex = 0;
+            btnRegistrar.Text = "Registrar";
+            btnRegistrar.UseVisualStyleBackColor = true;
+            btnRegistrar.Click += button1_Click;
             // 
             // button2
             // 
@@ -78,7 +78,7 @@
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnRegistrar);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "frmMenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
@@ -89,7 +89,7 @@
 
         #endregion
 
-        private Button button1;
+        private Button btnRegistrar;
         private Button button2;
         private Button button3;
         private Button button4;

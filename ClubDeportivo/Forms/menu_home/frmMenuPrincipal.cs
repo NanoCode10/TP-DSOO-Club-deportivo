@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClubDeportivo.Forms.registrar;
 
 namespace ClubDeportivo.Forms.menu_home
 {
@@ -15,6 +16,13 @@ namespace ClubDeportivo.Forms.menu_home
         public frmMenuPrincipal()
         {
             InitializeComponent();
+            btnRegistrar.Click += btnRegistrar_Click;
+        }
+
+        private void btnRegistrar_Click(object sender, EventArgs e)
+        {
+            using var frm = new ClubDeportivo.Forms.registrar.frmRegistrar();
+            frm.ShowDialog(this);
         }
 
         private void button1_Click(object sender, EventArgs e)
