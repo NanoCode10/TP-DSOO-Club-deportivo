@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ClubDeportivo.Forms.registrar;
+﻿using ClubDeportivo.Forms.registrar;
 
 namespace ClubDeportivo.Forms.menu_home
 {
@@ -16,18 +7,19 @@ namespace ClubDeportivo.Forms.menu_home
         public frmMenuPrincipal()
         {
             InitializeComponent();
-            btnRegistrar.Click += btnRegistrar_Click;
         }
 
-        private void btnRegistrar_Click(object sender, EventArgs e)
+        private void frmMenuPrincipal_Load(object sender, EventArgs e)
         {
-            using var frm = new ClubDeportivo.Forms.registrar.frmRegistrar();
-            frm.ShowDialog(this);
+            btnCobrarActividad.Enabled = false;
+            btnCobrarCuota.Enabled = false;
+            btnListado.Enabled = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnRegistro_Click(object sender, EventArgs e)
         {
-
+            frmRegistrar frmR = new frmRegistrar();
+            frmR.ShowDialog();
         }
     }
 }

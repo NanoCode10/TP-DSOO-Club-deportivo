@@ -28,70 +28,75 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnRegistrar = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
+            btnRegistro = new Button();
+            btnCobrarCuota = new Button();
+            btnCobrarActividad = new Button();
+            btnListado = new Button();
             SuspendLayout();
             // 
-            // btnRegistrar
+            // btnRegistro
             // 
-            btnRegistrar.Location = new Point(284, 70);
-            btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.Size = new Size(181, 23);
-            btnRegistrar.TabIndex = 0;
-            btnRegistrar.Text = "Registrar";
-            btnRegistrar.UseVisualStyleBackColor = true;
-            btnRegistrar.Click += button1_Click;
+            btnRegistro.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRegistro.Location = new Point(134, 165);
+            btnRegistro.Name = "btnRegistro";
+            btnRegistro.Size = new Size(237, 79);
+            btnRegistro.TabIndex = 0;
+            btnRegistro.Text = "Registrar";
+            btnRegistro.UseVisualStyleBackColor = true;
+            btnRegistro.Click += btnRegistro_Click;
             // 
-            // button2
+            // btnCobrarCuota
             // 
-            button2.Location = new Point(284, 126);
-            button2.Name = "button2";
-            button2.Size = new Size(181, 23);
-            button2.TabIndex = 1;
-            button2.Text = "Cobrar cuota";
-            button2.UseVisualStyleBackColor = true;
+            btnCobrarCuota.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCobrarCuota.Location = new Point(134, 280);
+            btnCobrarCuota.Name = "btnCobrarCuota";
+            btnCobrarCuota.Size = new Size(243, 79);
+            btnCobrarCuota.TabIndex = 1;
+            btnCobrarCuota.Text = "Cobrar cuota";
+            btnCobrarCuota.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnCobrarActividad
             // 
-            button3.Location = new Point(284, 177);
-            button3.Name = "button3";
-            button3.Size = new Size(181, 23);
-            button3.TabIndex = 2;
-            button3.Text = "Cobrar actividad";
-            button3.UseVisualStyleBackColor = true;
+            btnCobrarActividad.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCobrarActividad.Location = new Point(417, 280);
+            btnCobrarActividad.Name = "btnCobrarActividad";
+            btnCobrarActividad.Size = new Size(237, 79);
+            btnCobrarActividad.TabIndex = 2;
+            btnCobrarActividad.Text = "Cobrar actividad";
+            btnCobrarActividad.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnListado
             // 
-            button4.Location = new Point(284, 231);
-            button4.Name = "button4";
-            button4.Size = new Size(181, 23);
-            button4.TabIndex = 3;
-            button4.Text = "Listado de vencimientos";
-            button4.UseVisualStyleBackColor = true;
+            btnListado.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnListado.Location = new Point(417, 165);
+            btnListado.Name = "btnListado";
+            btnListado.Size = new Size(237, 79);
+            btnListado.TabIndex = 3;
+            btnListado.Text = "Listado de vencimientos";
+            btnListado.UseVisualStyleBackColor = true;
             // 
             // frmMenuPrincipal
             // 
             AutoValidate = AutoValidate.EnablePreventFocusChange;
             ClientSize = new Size(784, 561);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(btnRegistrar);
+            Controls.Add(btnListado);
+            Controls.Add(btnCobrarActividad);
+            Controls.Add(btnCobrarCuota);
+            Controls.Add(btnRegistro);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "frmMenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Club deportivo - Menú principal";
+            Load += frmMenuPrincipal_Load;
             ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Button btnRegistrar;
-        private Button button2;
-        private Button button3;
-        private Button button4;
+        private Button btnRegistro;
+        private Button btnCobrarCuota;
+        private Button btnCobrarActividad;
+        private Button btnListado;
     }
 }

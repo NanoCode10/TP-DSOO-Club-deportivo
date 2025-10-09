@@ -1,15 +1,6 @@
 ﻿using ClubDeportivo.Forms.menu_home;
-using Org.BouncyCastle.Pqc.Crypto.Lms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace ClubDeportivo.Forms
 {
@@ -25,26 +16,15 @@ namespace ClubDeportivo.Forms
             string usuario = txtUsuario.Text;
             string password = txtPassword.Text;
 
-            /*if (usuario == "admin" && password == "123")
-            {
-                //MessageBox.Show("Credenciales correctas");
-                frmMenuPrincipal frmMH = new frmMenuPrincipal();
-                frmMH.Show();
-            }
-            else
-            {
-                MessageBox.Show("Usuario inexistente o password incorrecto");
-            }*/
-
-            DataTable tablaLogin = new DataTable(); // es la que recibe los datos desde el formulario
-            Datos.Usuarios dato = new Datos.Usuarios(); // variable que contiene todas las caracteristicas de la clase
+            DataTable tablaLogin = new DataTable(); 
+            Datos.Usuarios dato = new Datos.Usuarios(); 
             tablaLogin = dato.Log_Usu(usuario, password);
             if (tablaLogin.Rows.Count > 0)
             {
                 // quiere decir que el resultado tiene 1 fila por lo que el usuario EXISTE
-                //MessageBox.Show("Ingreso exitoso");
                 frmMenuPrincipal frmMH = new frmMenuPrincipal();
-                frmMH.Show();
+                frmMH.ShowDialog();
+                this.Close();
             }
             else
             {

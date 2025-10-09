@@ -28,182 +28,277 @@
         /// </summary>
         private void InitializeComponent()
         {
-            rbSocio = new RadioButton();
-            rbNoSocio = new RadioButton();
             txtNombre = new TextBox();
+            btnRegistrar = new Button();
+            lblRegistro = new Label();
+            lblDatosPersonales = new Label();
+            lblNombre = new Label();
+            lblApellido = new Label();
             txtApellido = new TextBox();
-            cboTipoDoc = new ComboBox();
+            lblDocumento = new Label();
             txtDocumento = new TextBox();
-            dtpNacimiento = new DateTimePicker();
-            txtDireccion = new TextBox();
-            txtTelefono = new TextBox();
-            txtEmail = new TextBox();
-            btnGuardar = new Button();
+            lblTipoDocumento = new Label();
+            cboTipoDocumento = new ComboBox();
+            lblDatosAdicionales = new Label();
+            lblTipo = new Label();
+            cboTipo = new ComboBox();
+            cboAptoFisico = new ComboBox();
+            lblAptoFísico = new Label();
             btnLimpiar = new Button();
-            btnVolver = new Button();
+            dgvSocios = new DataGridView();
+            lblListaSociosNoSocios = new Label();
+            ((System.ComponentModel.ISupportInitialize)dgvSocios).BeginInit();
             SuspendLayout();
-            // 
-            // rbSocio
-            // 
-            rbSocio.AutoSize = true;
-            rbSocio.Checked = true;
-            rbSocio.Location = new Point(41, 46);
-            rbSocio.Name = "rbSocio";
-            rbSocio.Size = new Size(54, 19);
-            rbSocio.TabIndex = 0;
-            rbSocio.TabStop = true;
-            rbSocio.Text = "Socio";
-            rbSocio.UseVisualStyleBackColor = true;
-            // 
-            // rbNoSocio
-            // 
-            rbNoSocio.AutoSize = true;
-            rbNoSocio.Location = new Point(41, 85);
-            rbNoSocio.Name = "rbNoSocio";
-            rbNoSocio.Size = new Size(73, 19);
-            rbNoSocio.TabIndex = 1;
-            rbNoSocio.Text = "No Socio";
-            rbNoSocio.UseVisualStyleBackColor = true;
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(200, 32);
+            txtNombre.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtNombre.Location = new Point(151, 95);
             txtNombre.Name = "txtNombre";
-            txtNombre.PlaceholderText = "Nombre";
-            txtNombre.Size = new Size(200, 23);
-            txtNombre.TabIndex = 2;
+            txtNombre.Size = new Size(182, 26);
+            txtNombre.TabIndex = 1;
+            // 
+            // btnRegistrar
+            // 
+            btnRegistrar.BackColor = Color.FromArgb(55, 176, 53);
+            btnRegistrar.Cursor = Cursors.Hand;
+            btnRegistrar.FlatStyle = FlatStyle.Flat;
+            btnRegistrar.ForeColor = SystemColors.HighlightText;
+            btnRegistrar.Location = new Point(387, 360);
+            btnRegistrar.Name = "btnRegistrar";
+            btnRegistrar.Size = new Size(202, 26);
+            btnRegistrar.TabIndex = 7;
+            btnRegistrar.Text = "Registrar";
+            btnRegistrar.UseVisualStyleBackColor = false;
+            btnRegistrar.Click += btnRegistrar_Click;
+            // 
+            // lblRegistro
+            // 
+            lblRegistro.AutoSize = true;
+            lblRegistro.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblRegistro.Location = new Point(292, 9);
+            lblRegistro.Name = "lblRegistro";
+            lblRegistro.Size = new Size(221, 20);
+            lblRegistro.TabIndex = 6;
+            lblRegistro.Text = "Registro de socio/no socio";
+            // 
+            // lblDatosPersonales
+            // 
+            lblDatosPersonales.AutoSize = true;
+            lblDatosPersonales.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDatosPersonales.Location = new Point(151, 58);
+            lblDatosPersonales.Name = "lblDatosPersonales";
+            lblDatosPersonales.Size = new Size(151, 20);
+            lblDatosPersonales.TabIndex = 8;
+            lblDatosPersonales.Text = "Datos Personales";
+            // 
+            // lblNombre
+            // 
+            lblNombre.AutoSize = true;
+            lblNombre.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblNombre.Location = new Point(82, 99);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(66, 18);
+            lblNombre.TabIndex = 9;
+            lblNombre.Text = "Nombre:";
+            // 
+            // lblApellido
+            // 
+            lblApellido.AutoSize = true;
+            lblApellido.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblApellido.Location = new Point(379, 99);
+            lblApellido.Name = "lblApellido";
+            lblApellido.Size = new Size(63, 18);
+            lblApellido.TabIndex = 11;
+            lblApellido.Text = "Apellido:";
             // 
             // txtApellido
             // 
-            txtApellido.Location = new Point(200, 74);
+            txtApellido.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtApellido.Location = new Point(448, 95);
             txtApellido.Name = "txtApellido";
-            txtApellido.PlaceholderText = "Apellido";
-            txtApellido.Size = new Size(200, 23);
-            txtApellido.TabIndex = 3;
+            txtApellido.Size = new Size(182, 26);
+            txtApellido.TabIndex = 10;
             // 
-            // cboTipoDoc
+            // lblDocumento
             // 
-            cboTipoDoc.FormattingEnabled = true;
-            cboTipoDoc.Items.AddRange(new object[] { "DNI, LC, LE, Pasaporte;" });
-            cboTipoDoc.Location = new Point(200, 117);
-            cboTipoDoc.Name = "cboTipoDoc";
-            cboTipoDoc.Size = new Size(200, 23);
-            cboTipoDoc.TabIndex = 4;
-            cboTipoDoc.SelectedIndexChanged += cboTipoDoc_SelectedIndexChanged;
+            lblDocumento.AutoSize = true;
+            lblDocumento.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDocumento.Location = new Point(56, 154);
+            lblDocumento.Name = "lblDocumento";
+            lblDocumento.Size = new Size(90, 18);
+            lblDocumento.TabIndex = 13;
+            lblDocumento.Text = "Documento:";
             // 
             // txtDocumento
             // 
-            txtDocumento.Location = new Point(200, 163);
+            txtDocumento.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtDocumento.Location = new Point(151, 150);
             txtDocumento.Name = "txtDocumento";
-            txtDocumento.PlaceholderText = "Nro de documento";
-            txtDocumento.Size = new Size(200, 23);
-            txtDocumento.TabIndex = 5;
+            txtDocumento.Size = new Size(182, 26);
+            txtDocumento.TabIndex = 12;
             // 
-            // dtpNacimiento
+            // lblTipoDocumento
             // 
-            dtpNacimiento.Format = DateTimePickerFormat.Short;
-            dtpNacimiento.Location = new Point(200, 206);
-            dtpNacimiento.Name = "dtpNacimiento";
-            dtpNacimiento.Size = new Size(200, 23);
-            dtpNacimiento.TabIndex = 6;
+            lblTipoDocumento.AutoSize = true;
+            lblTipoDocumento.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTipoDocumento.Location = new Point(374, 154);
+            lblTipoDocumento.Name = "lblTipoDocumento";
+            lblTipoDocumento.Size = new Size(120, 18);
+            lblTipoDocumento.TabIndex = 14;
+            lblTipoDocumento.Text = "Tipo documento:";
             // 
-            // txtDireccion
+            // cboTipoDocumento
             // 
-            txtDireccion.Location = new Point(200, 255);
-            txtDireccion.Name = "txtDireccion";
-            txtDireccion.PlaceholderText = "Calle Siempre Viva 666";
-            txtDireccion.Size = new Size(200, 23);
-            txtDireccion.TabIndex = 7;
+            cboTipoDocumento.FormattingEnabled = true;
+            cboTipoDocumento.Items.AddRange(new object[] { "DNI", "PASAPORTE" });
+            cboTipoDocumento.Location = new Point(509, 153);
+            cboTipoDocumento.Name = "cboTipoDocumento";
+            cboTipoDocumento.Size = new Size(121, 23);
+            cboTipoDocumento.TabIndex = 15;
             // 
-            // txtTelefono
+            // lblDatosAdicionales
             // 
-            txtTelefono.Location = new Point(200, 297);
-            txtTelefono.Name = "txtTelefono";
-            txtTelefono.PlaceholderText = "11 5488 4085";
-            txtTelefono.Size = new Size(200, 23);
-            txtTelefono.TabIndex = 8;
+            lblDatosAdicionales.AutoSize = true;
+            lblDatosAdicionales.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDatosAdicionales.Location = new Point(151, 217);
+            lblDatosAdicionales.Name = "lblDatosAdicionales";
+            lblDatosAdicionales.Size = new Size(152, 20);
+            lblDatosAdicionales.TabIndex = 16;
+            lblDatosAdicionales.Text = "Datos adicionales";
             // 
-            // txtEmail
+            // lblTipo
             // 
-            txtEmail.Location = new Point(200, 348);
-            txtEmail.Name = "txtEmail";
-            txtEmail.PlaceholderText = "correo@correo.com";
-            txtEmail.Size = new Size(200, 23);
-            txtEmail.TabIndex = 9;
+            lblTipo.AutoSize = true;
+            lblTipo.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTipo.Location = new Point(177, 282);
+            lblTipo.Name = "lblTipo";
+            lblTipo.Size = new Size(41, 18);
+            lblTipo.TabIndex = 17;
+            lblTipo.Text = "Tipo:";
             // 
-            // btnGuardar
+            // cboTipo
             // 
-            btnGuardar.Location = new Point(502, 104);
-            btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(75, 23);
-            btnGuardar.TabIndex = 10;
-            btnGuardar.Text = "Guardar";
-            btnGuardar.UseVisualStyleBackColor = true;
+            cboTipo.FormattingEnabled = true;
+            cboTipo.Items.AddRange(new object[] { "Socio" });
+            cboTipo.Location = new Point(232, 278);
+            cboTipo.Name = "cboTipo";
+            cboTipo.Size = new Size(121, 23);
+            cboTipo.TabIndex = 18;
+            cboTipo.Text = "Seleccionar...";
+            // 
+            // cboAptoFisico
+            // 
+            cboAptoFisico.FormattingEnabled = true;
+            cboAptoFisico.Items.AddRange(new object[] { "Si", "No" });
+            cboAptoFisico.Location = new Point(484, 278);
+            cboAptoFisico.Name = "cboAptoFisico";
+            cboAptoFisico.Size = new Size(76, 23);
+            cboAptoFisico.TabIndex = 20;
+            cboAptoFisico.Text = "Seleccionar...";
+            // 
+            // lblAptoFísico
+            // 
+            lblAptoFísico.AutoSize = true;
+            lblAptoFísico.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblAptoFísico.Location = new Point(387, 282);
+            lblAptoFísico.Name = "lblAptoFísico";
+            lblAptoFísico.Size = new Size(81, 18);
+            lblAptoFísico.TabIndex = 21;
+            lblAptoFísico.Text = "Apto físico:";
             // 
             // btnLimpiar
             // 
-            btnLimpiar.Location = new Point(502, 162);
+            btnLimpiar.BackColor = SystemColors.ControlLightLight;
+            btnLimpiar.Cursor = Cursors.Hand;
+            btnLimpiar.FlatStyle = FlatStyle.Flat;
+            btnLimpiar.ForeColor = SystemColors.Desktop;
+            btnLimpiar.Location = new Point(151, 360);
             btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(75, 23);
-            btnLimpiar.TabIndex = 11;
+            btnLimpiar.Size = new Size(202, 26);
+            btnLimpiar.TabIndex = 22;
             btnLimpiar.Text = "Limpiar";
-            btnLimpiar.UseVisualStyleBackColor = true;
+            btnLimpiar.UseVisualStyleBackColor = false;
+            btnLimpiar.Click += btnLimpiar_Click;
             // 
-            // btnVolver
+            // dgvSocios
             // 
-            btnVolver.Location = new Point(502, 225);
-            btnVolver.Name = "btnVolver";
-            btnVolver.Size = new Size(75, 23);
-            btnVolver.TabIndex = 12;
-            btnVolver.Text = "Volver";
-            btnVolver.UseVisualStyleBackColor = true;
+            dgvSocios.AllowUserToAddRows = false;
+            dgvSocios.AllowUserToDeleteRows = false;
+            dgvSocios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSocios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSocios.Location = new Point(29, 461);
+            dgvSocios.MultiSelect = false;
+            dgvSocios.Name = "dgvSocios";
+            dgvSocios.ReadOnly = true;
+            dgvSocios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvSocios.Size = new Size(725, 88);
+            dgvSocios.TabIndex = 23;
+            // 
+            // lblListaSociosNoSocios
+            // 
+            lblListaSociosNoSocios.AutoSize = true;
+            lblListaSociosNoSocios.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblListaSociosNoSocios.Location = new Point(29, 423);
+            lblListaSociosNoSocios.Name = "lblListaSociosNoSocios";
+            lblListaSociosNoSocios.Size = new Size(152, 20);
+            lblListaSociosNoSocios.TabIndex = 24;
+            lblListaSociosNoSocios.Text = "Listado de Socios";
             // 
             // frmRegistrar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(682, 393);
-            Controls.Add(btnVolver);
+            ClientSize = new Size(784, 561);
+            Controls.Add(lblListaSociosNoSocios);
+            Controls.Add(dgvSocios);
             Controls.Add(btnLimpiar);
-            Controls.Add(btnGuardar);
-            Controls.Add(txtEmail);
-            Controls.Add(txtTelefono);
-            Controls.Add(txtDireccion);
-            Controls.Add(dtpNacimiento);
+            Controls.Add(lblAptoFísico);
+            Controls.Add(cboAptoFisico);
+            Controls.Add(cboTipo);
+            Controls.Add(lblTipo);
+            Controls.Add(lblDatosAdicionales);
+            Controls.Add(cboTipoDocumento);
+            Controls.Add(lblTipoDocumento);
+            Controls.Add(lblDocumento);
             Controls.Add(txtDocumento);
-            Controls.Add(cboTipoDoc);
+            Controls.Add(lblApellido);
             Controls.Add(txtApellido);
+            Controls.Add(lblNombre);
+            Controls.Add(lblDatosPersonales);
+            Controls.Add(btnRegistrar);
+            Controls.Add(lblRegistro);
             Controls.Add(txtNombre);
-            Controls.Add(rbNoSocio);
-            Controls.Add(rbSocio);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "frmRegistrar";
-            Text = "Registrar";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Club deportivo  -Registrar  persona";
+            Load += frmAgregarPersona_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvSocios).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private RadioButton rbSocio;
-        private RadioButton rbNoSocio;
         private TextBox txtNombre;
+        private Button btnRegistrar;
+        private Label lblRegistro;
+        private Label lblDatosPersonales;
+        private Label lblNombre;
+        private Label lblApellido;
         private TextBox txtApellido;
-        private ComboBox cboTipoDoc;
+        private Label lblDocumento;
         private TextBox txtDocumento;
-        private DateTimePicker dtpNacimiento;
-        private TextBox txtDireccion;
-        private TextBox txtTelefono;
-        private TextBox txtEmail;
-        private Button btnGuardar;
+        private Label lblTipoDocumento;
+        private ComboBox cboTipoDocumento;
+        private Label lblDatosAdicionales;
+        private Label lblTipo;
+        private ComboBox cboTipo;
+        private ComboBox cboAptoFisico;
+        private Label lblAptoFísico;
         private Button btnLimpiar;
-
-        private void cboTipoDoc_SelectedIndexChanged(object? sender, EventArgs e)
-        {
-            // opcional: nada
-        }
-        private Button btnVolver;
+        private DataGridView dgvSocios;
+        private Label lblListaSociosNoSocios;
     }
-
-
-
 }

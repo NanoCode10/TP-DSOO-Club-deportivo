@@ -6,17 +6,9 @@
 *.ide/
 bin/
 obj/
-TestResults/
-*.VisualState.xml
-*.ncrunch*
-_ReSharper*/
-*.DotSettings.user
+
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Secretos / settings locales (no subir credenciales)
-**/appsettings.Development.json
-secrets.json
-.env
