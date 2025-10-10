@@ -1,0 +1,102 @@
+﻿namespace ClubDeportivo.Forms.menu_home
+{
+    partial class frmMenuPrincipal
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            btnRegistro = new Button();
+            btnCobrarCuota = new Button();
+            btnCobrarActividad = new Button();
+            btnListado = new Button();
+            SuspendLayout();
+            // 
+            // btnRegistro
+            // 
+            btnRegistro.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRegistro.Location = new Point(134, 165);
+            btnRegistro.Name = "btnRegistro";
+            btnRegistro.Size = new Size(237, 79);
+            btnRegistro.TabIndex = 0;
+            btnRegistro.Text = "Registrar";
+            btnRegistro.UseVisualStyleBackColor = true;
+            btnRegistro.Click += btnRegistro_Click;
+            // 
+            // btnCobrarCuota
+            // 
+            btnCobrarCuota.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCobrarCuota.Location = new Point(134, 280);
+            btnCobrarCuota.Name = "btnCobrarCuota";
+            btnCobrarCuota.Size = new Size(243, 79);
+            btnCobrarCuota.TabIndex = 1;
+            btnCobrarCuota.Text = "Cobrar cuota";
+            btnCobrarCuota.UseVisualStyleBackColor = true;
+            // 
+            // btnCobrarActividad
+            // 
+            btnCobrarActividad.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCobrarActividad.Location = new Point(417, 280);
+            btnCobrarActividad.Name = "btnCobrarActividad";
+            btnCobrarActividad.Size = new Size(237, 79);
+            btnCobrarActividad.TabIndex = 2;
+            btnCobrarActividad.Text = "Cobrar actividad";
+            btnCobrarActividad.UseVisualStyleBackColor = true;
+            // 
+            // btnListado
+            // 
+            btnListado.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnListado.Location = new Point(417, 165);
+            btnListado.Name = "btnListado";
+            btnListado.Size = new Size(237, 79);
+            btnListado.TabIndex = 3;
+            btnListado.Text = "Listado de vencimientos";
+            btnListado.UseVisualStyleBackColor = true;
+            // 
+            // frmMenuPrincipal
+            // 
+            AutoValidate = AutoValidate.EnablePreventFocusChange;
+            ClientSize = new Size(784, 561);
+            Controls.Add(btnListado);
+            Controls.Add(btnCobrarActividad);
+            Controls.Add(btnCobrarCuota);
+            Controls.Add(btnRegistro);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Name = "frmMenuPrincipal";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Club deportivo - Menú principal";
+            Load += frmMenuPrincipal_Load;
+            ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private Button btnRegistro;
+        private Button btnCobrarCuota;
+        private Button btnCobrarActividad;
+        private Button btnListado;
+    }
+}
