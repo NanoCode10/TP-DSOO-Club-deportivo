@@ -20,16 +20,25 @@ namespace ClubDeportivo.Datos
         private static Conexion? con = null;
         private Conexion() // asignamos valores a las variables de la conexion
             {
-            /*this.baseDatos = "sql10801085";
-            this.servidor = "sql10.freesqldatabase.com";
+            // Datos para docente usuario administrador en formulario login: user: admin pass: 123456 
+            
+            // Online:
+            /*
+            this.baseDatos = "u106409402_Proyecto";
+            this.servidor = "193.203.175.232";
             this.puerto = "3306";
-            this.usuario = "sql10801085";
-            this.clave = "yM2VdVj3vn";*/
-            this.baseDatos = "clubdeportivo";
+            this.usuario = "u106409402_aacmp";
+            this.clave = "AACMP_ifts29";
+            */
+
+            // Local:
+            
+            this.baseDatos = "clubDeportivoAACMP";
             this.servidor = "localhost";
             this.puerto = "3306";
             this.usuario = "root";
             this.clave = "root";
+            
         }
         // proceso de interacción
         public MySqlConnection CrearConexion()

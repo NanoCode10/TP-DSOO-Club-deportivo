@@ -1,6 +1,6 @@
-drop database if exists clubdeportivo;
-create database clubdeportivo; 
-use clubDeportivo;
+drop database if exists clubdeportivoAACMP;
+create database clubdeportivoAACMP; 
+use clubDeportivoAACMP;
 
 
 /*Conexión local:

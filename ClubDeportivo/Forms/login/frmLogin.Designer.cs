@@ -39,23 +39,24 @@
             // 
             // txtUsuario
             // 
-            txtUsuario.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtUsuario.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtUsuario.Location = new Point(293, 145);
             txtUsuario.Name = "txtUsuario";
+            txtUsuario.PlaceholderText = "Usuario";
             txtUsuario.Size = new Size(182, 26);
             txtUsuario.TabIndex = 0;
-            txtUsuario.Text = "Usuario";
             txtUsuario.Enter += txtUsuario_Enter;
             txtUsuario.Leave += txtUsuario_Leave;
             // 
             // txtPassword
             // 
-            txtPassword.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtPassword.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtPassword.Location = new Point(293, 190);
             txtPassword.Name = "txtPassword";
+            txtPassword.PlaceholderText = "Password";
             txtPassword.Size = new Size(182, 26);
             txtPassword.TabIndex = 1;
-            txtPassword.Text = "Password";
+            txtPassword.UseSystemPasswordChar = true;
             txtPassword.Enter += txtPassword_Enter;
             txtPassword.Leave += txtPassword_Leave;
             // 
@@ -72,10 +73,10 @@
             // lblIniciarSesion
             // 
             lblIniciarSesion.AutoSize = true;
-            lblIniciarSesion.Font = new Font("Karla Medium", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblIniciarSesion.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblIniciarSesion.Location = new Point(329, 104);
             lblIniciarSesion.Name = "lblIniciarSesion";
-            lblIniciarSesion.Size = new Size(123, 20);
+            lblIniciarSesion.Size = new Size(115, 20);
             lblIniciarSesion.TabIndex = 3;
             lblIniciarSesion.Text = "Iniciar sesión";
             // 
@@ -88,14 +89,15 @@
             btnIngresar.Location = new Point(314, 238);
             btnIngresar.Name = "btnIngresar";
             btnIngresar.Size = new Size(138, 26);
-            btnIngresar.TabIndex = 4;
+            btnIngresar.TabIndex = 2;
             btnIngresar.Text = "Ingresar";
             btnIngresar.UseVisualStyleBackColor = false;
             btnIngresar.Click += btnLogin_Click;
             // 
             // frmLogin
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AcceptButton = btnIngresar;
+            AutoScaleDimensions = new SizeF(8F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(584, 361);
             Controls.Add(btnIngresar);
@@ -103,7 +105,7 @@
             Controls.Add(picLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUsuario);
-            Font = new Font("Karla", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;

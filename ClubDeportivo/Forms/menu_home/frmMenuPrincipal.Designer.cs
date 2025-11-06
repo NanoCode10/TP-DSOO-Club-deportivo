@@ -36,8 +36,8 @@
             // 
             // btnRegistro
             // 
-            btnRegistro.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnRegistro.Location = new Point(134, 165);
+            btnRegistro.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRegistro.Location = new Point(129, 123);
             btnRegistro.Name = "btnRegistro";
             btnRegistro.Size = new Size(237, 79);
             btnRegistro.TabIndex = 0;
@@ -47,18 +47,19 @@
             // 
             // btnCobrarCuota
             // 
-            btnCobrarCuota.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCobrarCuota.Location = new Point(134, 280);
+            btnCobrarCuota.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCobrarCuota.Location = new Point(129, 238);
             btnCobrarCuota.Name = "btnCobrarCuota";
             btnCobrarCuota.Size = new Size(243, 79);
             btnCobrarCuota.TabIndex = 1;
             btnCobrarCuota.Text = "Cobrar cuota";
             btnCobrarCuota.UseVisualStyleBackColor = true;
+            btnCobrarCuota.Click += btnCobrarCuota_Click;
             // 
             // btnCobrarActividad
             // 
-            btnCobrarActividad.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCobrarActividad.Location = new Point(417, 280);
+            btnCobrarActividad.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCobrarActividad.Location = new Point(412, 238);
             btnCobrarActividad.Name = "btnCobrarActividad";
             btnCobrarActividad.Size = new Size(237, 79);
             btnCobrarActividad.TabIndex = 2;
@@ -67,8 +68,8 @@
             // 
             // btnListado
             // 
-            btnListado.Font = new Font("Karla", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnListado.Location = new Point(417, 165);
+            btnListado.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnListado.Location = new Point(412, 123);
             btnListado.Name = "btnListado";
             btnListado.Size = new Size(237, 79);
             btnListado.TabIndex = 3;
@@ -78,7 +79,7 @@
             // frmMenuPrincipal
             // 
             AutoValidate = AutoValidate.EnablePreventFocusChange;
-            ClientSize = new Size(784, 561);
+            ClientSize = new Size(784, 461);
             Controls.Add(btnListado);
             Controls.Add(btnCobrarActividad);
             Controls.Add(btnCobrarCuota);

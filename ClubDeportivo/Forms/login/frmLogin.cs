@@ -74,8 +74,10 @@ namespace ClubDeportivo.Forms
         private void frmLogin_Load(object sender, EventArgs e)
         {
             this.ActiveControl = btnIngresar;
-  
+            
         }
+
+
     }
 }
 

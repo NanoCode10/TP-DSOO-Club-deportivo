@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClubDeportivo.Entidades
 {
-    public class E_Socio : E_Persona
+    public class E_No_Socio : E_Persona
     {
-        public int IdSocio { get; set; }
-        public bool estado { get; set; }
-        public void pagarCuota() { }
+        public int IdNoSocio { get; set; }
 
     }
 }

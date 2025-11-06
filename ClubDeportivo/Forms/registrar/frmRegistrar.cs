@@ -7,7 +7,7 @@ namespace ClubDeportivo.Forms.registrar
     public partial class frmRegistrar : Form
     {
         // Repositorio de datos
-        private readonly Socios _socios = new();
+        private readonly Personas _socios = new();
 
         public frmRegistrar()
         {
@@ -28,20 +28,7 @@ namespace ClubDeportivo.Forms.registrar
             txtNombre.Focus();
         }
 
-        private void CargarSocios()
-        {
-            dgvSocios.DataSource = _socios.Listar_Socios(); // SP listar_socios
-
-            if (dgvSocios.Columns.Contains("CodigoPersona"))
-                dgvSocios.Columns["CodigoPersona"].Visible = false;
-
-            if (dgvSocios.Columns.Contains("CodigoSocio"))
-                dgvSocios.Columns["CodigoSocio"].HeaderText = "Código";
-            if (dgvSocios.Columns.Contains("TipoDocumento"))
-                dgvSocios.Columns["TipoDocumento"].HeaderText = "Tipo Doc.";
-            if (dgvSocios.Columns.Contains("AptoFisico"))
-                dgvSocios.Columns["AptoFisico"].HeaderText = "Apto físico";
-        }
+        
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
@@ -49,6 +36,8 @@ namespace ClubDeportivo.Forms.registrar
             string apellido = txtApellido.Text.Trim();
             string documento = txtDocumento.Text.Trim();
             string tipoDocumento = cboTipoDocumento.Text.Trim();
+            string email = txtEmail.Text.Trim();
+            string tel = txtTel.Text.Trim();
             string tipo = cboTipo.Text.Trim();
             string aptoFisico = cboAptoFisico.Text.Trim();
 
@@ -59,7 +48,7 @@ namespace ClubDeportivo.Forms.registrar
                 string.IsNullOrWhiteSpace(tipo) ||
                 string.IsNullOrWhiteSpace(aptoFisico))
             {
-                MessageBox.Show("Todos los campos son obligatorios",
+                MessageBox.Show("Los campos con * son obligatorios",
                     "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -71,25 +60,62 @@ namespace ClubDeportivo.Forms.registrar
                 return;
             }
 
+            var persona = new E_Persona
+            {
+                Nombre = nombre,
+                Apellido = apellido,
+                TipoDocumento = tipoDocumento,
+                Documento = documento,
+                Email = documento,
+                Tel = documento,
+                AptoFisico = aptoFisico.Equals("Si", StringComparison.OrdinalIgnoreCase)
+            };
+
+            string respuesta = "";
+
             if (tipo.Equals("Socio", StringComparison.OrdinalIgnoreCase))
             {
-                var socio = new E_Socio
+                respuesta = new Datos.Personas().Nueva_persona(persona, "Socio");
+                bool esNro = int.TryParse(respuesta, out int codSocio);
+                if (esNro && codSocio > 0)
                 {
-                    Nombre = nombre,
-                    Apellido = apellido,
-                    TipoDocumento = tipoDocumento,
-                    Documento = documento,
-                    AptoFisico = aptoFisico.Equals("Si", StringComparison.OrdinalIgnoreCase)
-                };
+                    MessageBox.Show("Se guardó con éxito el socio con el código Nro " + codSocio,
+                        "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                string respuesta = new Datos.Socios().Nuevo_Socio(socio);
+                    // 👉 Crear la cuota inicial
+                    var cuota = new E_Cuota
+                    {
+                        IdSocio = codSocio,
+                        FechaVencimiento = DateTime.Now,
+                        Monto = 10000, // por ejemplo, el monto base de la cuota
+                        FechaPago = null
+                    };
 
-                bool esNumero = int.TryParse(respuesta, out int codigo);
+                    string rtaCuota = new Datos.Cuotas().RegistrarCuota(cuota);
+
+                    MessageBox.Show($"Se registró el socio N° {codSocio} y su cuota inicial.\nResultado: {rtaCuota}",
+            "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    limpiar();
+                }
+            }
+            else if(tipo.Equals("No Socio", StringComparison.OrdinalIgnoreCase))
+            {
+                respuesta = new Datos.Personas().Nueva_persona(persona, "NoSocio");
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un tipo válido (Socio / NoSocio).",
+                    "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            bool esNumero = int.TryParse(respuesta, out int codigo);
                 if (esNumero)
                 {
                     if (codigo == 0)
                     {
-                        MessageBox.Show("El socio ya existe, corroborar los datos",
+                        MessageBox.Show("La persona ya existe, corroborar los datos",
                             "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
@@ -98,7 +124,7 @@ namespace ClubDeportivo.Forms.registrar
                             "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         limpiar();
-                        CargarSocios(); // ← refresca el grid
+                        //CargarSocios(); // ← refresca el grid
                     }
                 }
                 else
@@ -107,12 +133,8 @@ namespace ClubDeportivo.Forms.registrar
                     MessageBox.Show("No se pudo registrar el socio. Detalle: " + respuesta,
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Debe seleccionar un tipo válido (Socio / NoSocio).",
-                    "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            
+            
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -127,7 +149,7 @@ namespace ClubDeportivo.Forms.registrar
             if (cboTipo.Items.Count > 0) cboTipo.SelectedIndex = 0;        // “Socio”
             if (cboAptoFisico.Items.Count > 0) cboAptoFisico.SelectedIndex = 0;  // “Si”
             if (cboTipoDocumento.Items.Count > 0) cboTipoDocumento.SelectedIndex = 0; // “DNI”
-            CargarSocios(); // ← llena el DataGridView al abrir
+            //CargarSocios(); // ← llena el DataGridView al abrir
 
         }
     }
