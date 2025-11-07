@@ -77,13 +77,17 @@
             // 
             // btnPago
             // 
+            btnPago.BackColor = Color.MediumSeaGreen;
+            btnPago.BackgroundImageLayout = ImageLayout.None;
+            btnPago.FlatStyle = FlatStyle.Flat;
             btnPago.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnPago.ForeColor = SystemColors.Control;
             btnPago.Location = new Point(203, 386);
             btnPago.Name = "btnPago";
             btnPago.Size = new Size(193, 35);
             btnPago.TabIndex = 13;
             btnPago.Text = "Ir a Pago";
-            btnPago.UseVisualStyleBackColor = true;
+            btnPago.UseVisualStyleBackColor = false;
             btnPago.Click += btnPago_Click;
             // 
             // pnlDatosSocio
@@ -178,14 +182,14 @@
             // 
             // btnImprimirCarnet
             // 
-            btnImprimirCarnet.BackColor = SystemColors.Control;
+            btnImprimirCarnet.BackColor = SystemColors.ControlLightLight;
             btnImprimirCarnet.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnImprimirCarnet.Location = new Point(435, 386);
             btnImprimirCarnet.Name = "btnImprimirCarnet";
             btnImprimirCarnet.Size = new Size(193, 35);
             btnImprimirCarnet.TabIndex = 15;
             btnImprimirCarnet.Text = "Imprimir carnet";
-            btnImprimirCarnet.UseVisualStyleBackColor = true;
+            btnImprimirCarnet.UseVisualStyleBackColor = false;
             btnImprimirCarnet.Click += btnImprimirCarnet_Click;
             // 
             // lblFechaActual

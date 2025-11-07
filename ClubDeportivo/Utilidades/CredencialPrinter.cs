@@ -4,10 +4,10 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
 using ClubDeportivo.Entidades;
 
-namespace ClubDeportivo.Forms.cobrar_cuota
+namespace ClubDeportivo.Utilidades
 {
     /// Renderiza credencial CR-80 (85.6 x 54 mm) con banda superior.
-    internal sealed class CredencialPrinter
+    internal class CredencialPrinter
     {
         private const float CardWidthMm = 85.6f;
         private const float CardHeightMm = 54.0f;
@@ -29,9 +29,24 @@ namespace ClubDeportivo.Forms.cobrar_cuota
             };
             doc.PrintPage += OnPrintPage;
 
+            //Convertir a centésimas de pulgada
+            int width100th = (int)Math.Round(MmTo100thInch(CardWidthMm));
+            int height100th = (int)Math.Round(MmTo100thInch(CardHeightMm));
+
+            //Definir tamaño de página igual al de la credencial
+            doc.DefaultPageSettings.PaperSize = new PaperSize("Credencial CR80", width100th, height100th);
+            doc.DefaultPageSettings.Landscape = false;
+
+            doc.PrintPage += OnPrintPage;
+
             if (preview)
             {
-                using var prev = new PrintPreviewDialog { Document = doc, Width = 900, Height = 700 };
+                using var prev = new PrintPreviewDialog { Document = doc, Width = 800, Height = 500 };
+
+                prev.StartPosition = FormStartPosition.CenterScreen;
+                // Aumentar zoom para que se vea a tamaño real o mayor
+                if (prev.Controls[1] is PrintPreviewControl previewControl)
+                    previewControl.Zoom = 1.5;
                 prev.ShowDialog();
             }
             else
@@ -44,7 +59,7 @@ namespace ClubDeportivo.Forms.cobrar_cuota
         {
             if (_data is null) return;
 
-            var g = e.Graphics;
+            var g = e.Graphics!;
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;

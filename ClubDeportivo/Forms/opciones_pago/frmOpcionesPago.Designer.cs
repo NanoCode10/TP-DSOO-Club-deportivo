@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             lblCobroCuota = new Label();
-            lblApellido = new Label();
-            comboBox1 = new ComboBox();
-            label1 = new Label();
-            comboBox2 = new ComboBox();
-            btnRegistro = new Button();
+            lblMetodoPago = new Label();
+            cboMedioPago = new ComboBox();
+            lblCuotas = new Label();
+            cboCuotas = new ComboBox();
+            btnPagar = new Button();
+            lblSocio = new Label();
             SuspendLayout();
             // 
             // lblCobroCuota
@@ -46,70 +47,84 @@
             lblCobroCuota.TabIndex = 8;
             lblCobroCuota.Text = "Opciones de pago";
             // 
-            // lblApellido
+            // lblMetodoPago
             // 
-            lblApellido.AutoSize = true;
-            lblApellido.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblApellido.Location = new Point(161, 107);
-            lblApellido.Name = "lblApellido";
-            lblApellido.Size = new Size(120, 18);
-            lblApellido.TabIndex = 13;
-            lblApellido.Text = "Método de pago:";
+            lblMetodoPago.AutoSize = true;
+            lblMetodoPago.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblMetodoPago.Location = new Point(173, 140);
+            lblMetodoPago.Name = "lblMetodoPago";
+            lblMetodoPago.Size = new Size(120, 18);
+            lblMetodoPago.TabIndex = 13;
+            lblMetodoPago.Text = "Método de pago:";
             // 
-            // comboBox1
+            // cboMedioPago
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Tarjeta de crédito", "Efectivo" });
-            comboBox1.Location = new Point(287, 107);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(274, 23);
-            comboBox1.TabIndex = 14;
-            comboBox1.Text = "Seleccionar ...";
+            cboMedioPago.FormattingEnabled = true;
+            cboMedioPago.Items.AddRange(new object[] { "Tarjeta de crédito", "Efectivo" });
+            cboMedioPago.Location = new Point(299, 140);
+            cboMedioPago.Name = "cboMedioPago";
+            cboMedioPago.Size = new Size(274, 23);
+            cboMedioPago.TabIndex = 14;
+            cboMedioPago.Text = "Seleccionar ...";
+            cboMedioPago.SelectedIndexChanged += cboMedioPago_SelectedIndexChanged;
             // 
-            // label1
+            // lblCuotas
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(142, 156);
-            label1.Name = "label1";
-            label1.Size = new Size(139, 18);
-            label1.TabIndex = 15;
-            label1.Text = "Cantidad de cuotas:";
+            lblCuotas.AutoSize = true;
+            lblCuotas.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCuotas.Location = new Point(154, 189);
+            lblCuotas.Name = "lblCuotas";
+            lblCuotas.Size = new Size(139, 18);
+            lblCuotas.TabIndex = 15;
+            lblCuotas.Text = "Cantidad de cuotas:";
             // 
-            // comboBox2
+            // cboCuotas
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "1 cuota", "3 cuotas", "6 cuotas" });
-            comboBox2.Location = new Point(284, 156);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(110, 23);
-            comboBox2.TabIndex = 16;
-            comboBox2.Text = "Seleccionar ...";
+            cboCuotas.FormattingEnabled = true;
+            cboCuotas.Items.AddRange(new object[] { "1 cuota", "3 cuotas", "6 cuotas" });
+            cboCuotas.Location = new Point(296, 189);
+            cboCuotas.Name = "cboCuotas";
+            cboCuotas.Size = new Size(110, 23);
+            cboCuotas.TabIndex = 16;
+            cboCuotas.Text = "Seleccionar ...";
             // 
-            // btnRegistro
+            // btnPagar
             // 
-            btnRegistro.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnRegistro.Location = new Point(284, 267);
-            btnRegistro.Name = "btnRegistro";
-            btnRegistro.Size = new Size(237, 79);
-            btnRegistro.TabIndex = 17;
-            btnRegistro.Text = "Pagar cuota";
-            btnRegistro.UseVisualStyleBackColor = true;
+            btnPagar.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnPagar.Location = new Point(284, 267);
+            btnPagar.Name = "btnPagar";
+            btnPagar.Size = new Size(237, 79);
+            btnPagar.TabIndex = 17;
+            btnPagar.Text = "Pagar cuota";
+            btnPagar.UseVisualStyleBackColor = true;
+            btnPagar.Click += btnPagar_Click;
+            // 
+            // lblSocio
+            // 
+            lblSocio.AutoSize = true;
+            lblSocio.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSocio.Location = new Point(238, 91);
+            lblSocio.Name = "lblSocio";
+            lblSocio.Size = new Size(55, 18);
+            lblSocio.TabIndex = 18;
+            lblSocio.Text = "Socio: ";
             // 
             // frmOpcionesPago
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(784, 461);
-            Controls.Add(btnRegistro);
-            Controls.Add(comboBox2);
-            Controls.Add(label1);
-            Controls.Add(comboBox1);
-            Controls.Add(lblApellido);
+            Controls.Add(lblSocio);
+            Controls.Add(btnPagar);
+            Controls.Add(cboCuotas);
+            Controls.Add(lblCuotas);
+            Controls.Add(cboMedioPago);
+            Controls.Add(lblMetodoPago);
             Controls.Add(lblCobroCuota);
             Name = "frmOpcionesPago";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Club deportivo - Opciones de pago";
+            Load += frmOpcionesPago_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -117,10 +132,11 @@
         #endregion
 
         private Label lblCobroCuota;
-        private Label lblApellido;
-        private ComboBox comboBox1;
-        private Label label1;
-        private ComboBox comboBox2;
-        private Button btnRegistro;
+        private Label lblMetodoPago;
+        private ComboBox cboMedioPago;
+        private Label lblCuotas;
+        private ComboBox cboCuotas;
+        private Button btnPagar;
+        private Label lblSocio;
     }
 }

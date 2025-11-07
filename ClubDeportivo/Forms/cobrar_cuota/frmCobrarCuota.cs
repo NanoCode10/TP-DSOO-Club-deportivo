@@ -1,48 +1,31 @@
 ﻿using ClubDeportivo.Datos;
 using ClubDeportivo.Forms.opciones_pago;
-using ClubDeportivo.Forms.registrar;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
-using System.Drawing;
-using System.Drawing.Printing;
-using System.Drawing.Drawing2D;
+using ClubDeportivo.Utilidades;
 using ClubDeportivo.Entidades;
+using System.Data;
+using System.Text;
 
 
 namespace ClubDeportivo.Forms.cobrar_cuota
 {
-    
     public partial class frmCobrarCuota : Form
     {
-
-        private SocioCardData? _card;
-        public frmCobrarCuota()
+        public frmCobrarCuota(int p_codSocio=0)
         {
             InitializeComponent();
-
+            _codSocio = p_codSocio;//Para cargar el socio por defecto luego del registro
         }
+        private SocioCardData? _card; //para imprimir el carnet
+        private int _codSocio; //necesito que codSocio sea accesible dentro de los distintos métodos de la clase
+        private string nombreApellido = ""; //para mostrar juntos en un label
 
-        private int _codSocio;
-        private string nombreApellido;
-
-        private DataTable dt;
+        private DataTable dt = new DataTable();
         private bool cargando = false;
 
-
+        //Función para debbug dataTable:
         private void MostrarDataTableMessageBox(DataTable dt)
 
         {
-            //Función para debbug dataTable
             var sb = new StringBuilder();
             foreach (DataColumn col in dt.Columns) sb.Append(col.ColumnName).Append(" | ");
             sb.AppendLine();
@@ -61,6 +44,7 @@ namespace ClubDeportivo.Forms.cobrar_cuota
             cargando = true;
             var persona = new Personas();
             dt = persona.Listar_personas(tipo);
+
             dt.Columns.Add("NombreCompleto", typeof(string), "nombre + ' ' + apellido");
 
             cboSocio.DataSource = dt;
@@ -76,6 +60,11 @@ namespace ClubDeportivo.Forms.cobrar_cuota
         {
             inicializarLabels();
             CargarPersonas("Socio");
+            btnImprimirCarnet.Enabled = false;
+            if (_codSocio != 0)
+            {
+                cboSocio.SelectedValue = _codSocio;
+            }
         }
 
         private void inicializarLabels()
@@ -86,85 +75,81 @@ namespace ClubDeportivo.Forms.cobrar_cuota
             lblTel.Text = "Teléfono: ";
             lblFechaVencimiento.Text = "Vencimiento de la cuota: ";
             lblEstado.Text = "Estado del socio: ";
+            lblFechaActual.Text = "Fecha actual: " + DateTime.Now.ToString("dd/MM/yyyy");
         }
 
-       
-
-    private void cboSocio_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (cargando || cboSocio.SelectedIndex == -1) return;
-
-        // 1) Obtener el código de socio seleccionado (INICIALIZADO)
-        int codSocio = Convert.ToInt32(cboSocio.SelectedValue);
-
-
-        // 2) Buscar la fila en el DataTable
-        DataRow[] filas = dt.Select($"codSocio = {codSocio}");
-        if (filas.Length == 0)
+        private void cboSocio_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _card = null;
-            btnImprimirCarnet.Enabled = false;
-            return;
-        }
+            if (cargando || cboSocio.SelectedIndex == -1) return;
 
-        DataRow fila = filas[0];
+            //DEBUG DATATABLE:
+            //MostrarDataTableMessageBox(dt);
 
-        // 3) Refrescar labels 
-        inicializarLabels();
-        lblIdSocio.Text += codSocio;
-        lblNombreApellido.Text += $"{fila["nombre"]} {fila["apellido"]}";
-        lblEmail.Text += Convert.ToString(fila["email"]) ?? "";
-        lblTel.Text += Convert.ToString(fila["tel"]) ?? "";
-        lblFechaVencimiento.Text += (fila["fechaVencimiento"] == DBNull.Value
-                                      ? "-"
-                                      : Convert.ToDateTime(fila["fechaVencimiento"]).ToString("dd/MM/yyyy"));
-        lblEstado.Text += (dt.Columns.Contains("EstadoCuota")
-                                      ? Convert.ToString(fila["EstadoCuota"]) ?? ""
-                                      : (dt.Columns.Contains("EstadoSocio")
-                                            ? (Convert.ToBoolean(fila["EstadoSocio"]) ? "Activo" : "Inactivo")
-                                            : "-"));
+            if (cboSocio.SelectedValue is int codSocio)
+            {
+                DataRow[] filas = dt.Select($"codSocio = {codSocio}");
+                if (filas.Length > 0)
+                {
+                    DataRow fila = filas[0];
+                    _codSocio = codSocio;
 
-        // 4) Armar DTO para imprimir 
-        _card = new SocioCardData
-        {
-            CodSocio = codSocio, 
-            NombreApellido = $"{fila["nombre"]} {fila["apellido"]}",
-            Documento = Convert.ToString(fila["documento"]) ?? "",
-            Email = Convert.ToString(fila["email"]) ?? "",
-            Telefono = Convert.ToString(fila["tel"]) ?? "",
-            Vencimiento = fila["fechaVencimiento"] == DBNull.Value
+                    nombreApellido = fila["nombre"].ToString() + " " + fila["apellido"].ToString();
+                    inicializarLabels();
+                    lblIdSocio.Text += codSocio;
+
+                    lblNombreApellido.Text += $"{fila["nombre"]} {fila["apellido"]}";
+                    lblEmail.Text += fila["email"].ToString();
+                    lblTel.Text += fila["tel"].ToString();
+                    DateTime fechaVenc = Convert.ToDateTime(fila["fechaVencimiento"]);
+                    lblFechaVencimiento.Text += fechaVenc.ToString("dd/MM/yyyy");
+                    bool estadoSocio = Convert.ToBoolean(fila["estadoSocio"]);
+                    lblEstado.Text += estadoSocio ? "Activo" : "Inactivo";
+                    if (estadoSocio)
+                    {
+                        btnImprimirCarnet.Enabled = true;
+                    }
+                    else
+                    {
+                        btnImprimirCarnet.Enabled = false;
+                    }
+
+                    _card = new SocioCardData
+                    {
+                        CodSocio = codSocio,
+                        NombreApellido = $"{fila["nombre"]} {fila["apellido"]}",
+                        Documento = Convert.ToString(fila["documento"]) ?? "",
+                        Email = Convert.ToString(fila["email"]) ?? "",
+                        Telefono = Convert.ToString(fila["tel"]) ?? "",
+                        Vencimiento = fila["fechaVencimiento"] == DBNull.Value
                                 ? (DateTime?)null
                                 : Convert.ToDateTime(fila["fechaVencimiento"]),
-            Estado = dt.Columns.Contains("EstadoCuota")
-                                ? (Convert.ToString(fila["EstadoCuota"]) ?? "")
-                                : (dt.Columns.Contains("EstadoSocio")
-                                    ? (Convert.ToBoolean(fila["EstadoSocio"]) ? "Activo" : "Inactivo")
-                                    : "-")
-        };
+                        Estado = estadoSocio ? "Activo" : "Inactivo"
+                    };
 
-        // 5) Habilitar el botón (POR AHORA)
-        btnImprimirCarnet.Enabled = true;
-    }
+                }
 
 
-    private void btnPago_Click(object sender, EventArgs e)
+            }
+
+
+        }
+
+        private void btnPago_Click(object sender, EventArgs e)
         {
-            frmOpcionesPago frmOP = new frmOpcionesPago();
+            frmOpcionesPago frmOP = new frmOpcionesPago(_codSocio, nombreApellido);
             frmOP.ShowDialog();
         }
-       
-    private void btnImprimirCarnet_Click(object sender, EventArgs e)
+
+        private void btnImprimirCarnet_Click(object sender, EventArgs e)
         {
             if (_card is null)
             {
-                MessageBox.Show("Seleccione un socio primero.", "Imprimir carnet",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No hay datos para imprimir el carnet.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             var printer = new CredencialPrinter();
             printer.Print(_card, preview: true);
         }
-
     }
 }

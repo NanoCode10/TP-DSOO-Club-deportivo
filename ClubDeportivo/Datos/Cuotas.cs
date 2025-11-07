@@ -26,7 +26,7 @@ namespace ClubDeportivo.Datos
                 cmd.Parameters.AddWithValue("pFechaPago", (object)cuota.FechaPago ?? DBNull.Value);
 
                 int filas = cmd.ExecuteNonQuery();
-                rpta = (filas > 0) ? "OK" : "No se insertó la cuota.";
+                rpta = (filas > 0) ? "Cuota insertada OK" : "No se insertó la cuota.";
             }
             catch (Exception ex)
             {
@@ -36,6 +36,39 @@ namespace ClubDeportivo.Datos
             {
                 if (sqlCon.State == ConnectionState.Open)
                     sqlCon.Close();
+            }
+
+            return rpta;
+        }
+
+        public string PagarCuota(E_Cuota cuota)
+        {
+            string rpta = "";
+            using (MySqlConnection sqlCon = Conexion.getInstancia().CrearConexion())
+            {
+                try
+                {
+                    sqlCon.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand("pagar_cuota", sqlCon))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Parámetros del procedimiento
+                        cmd.Parameters.AddWithValue("pIdSocio", cuota.IdSocio);
+                        cmd.Parameters.AddWithValue("pFechaPago",
+                        cuota.FechaPago.HasValue ? cuota.FechaPago.Value.Date : DBNull.Value);
+
+                        // Ejecutar sin esperar un valor de retorno (ya que el proc no devuelve nada)
+                        cmd.ExecuteNonQuery();
+
+                        rpta = "Cuota pagada correctamente.";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    rpta = $"Error al pagar la cuota: {ex.Message}";
+                }
             }
 
             return rpta;

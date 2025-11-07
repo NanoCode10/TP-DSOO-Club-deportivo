@@ -83,5 +83,51 @@ namespace ClubDeportivo.Datos
             return tabla;
         }
 
+        public int Actualizar_persona(int id, E_Persona persona, string tipo)
+        {
+            using var con = Conexion.getInstancia().CrearConexion();
+            using var cmd = new MySqlCommand("actualizar_persona", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("pId", MySqlDbType.Int32).Value = id;
+            cmd.Parameters.Add("pNombre", MySqlDbType.VarChar).Value = persona.Nombre;
+            cmd.Parameters.Add("pApellido", MySqlDbType.VarChar).Value = persona.Apellido;
+            cmd.Parameters.Add("pTipoDocumento", MySqlDbType.VarChar).Value = persona.TipoDocumento;
+            cmd.Parameters.Add("pDocumento", MySqlDbType.VarChar).Value = persona.Documento;
+            cmd.Parameters.Add("pEmail", MySqlDbType.VarChar).Value = persona.Email;
+            cmd.Parameters.Add("pTel", MySqlDbType.VarChar).Value = persona.Tel;
+            cmd.Parameters.Add("pFichaMedica", MySqlDbType.Bit).Value = persona.AptoFisico;
+            cmd.Parameters.Add("pTipo", MySqlDbType.VarChar).Value = tipo; // "Socio" / "NoSocio"
+
+            var pOut = new MySqlParameter("@rta", MySqlDbType.Int32) { Direction = ParameterDirection.Output };
+            cmd.Parameters.Add(pOut);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+
+            return Convert.ToInt32(pOut.Value ?? 0);
+        }
+
+        public int Eliminar_persona(int id)
+        {
+            using var con = Conexion.getInstancia().CrearConexion();
+            using var cmd = new MySqlCommand("eliminar_persona", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("pId", MySqlDbType.Int32).Value = id;
+            var pOut = new MySqlParameter("@rta", MySqlDbType.Int32) { Direction = ParameterDirection.Output };
+            cmd.Parameters.Add(pOut);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+
+            return Convert.ToInt32(pOut.Value ?? 0);
+        }
+
+        // Helpers para grids
+        public DataTable ListarSocios() => Listar_personas("Socio");
+        public DataTable ListarNoSocios() => Listar_personas("NoSocio");
     }
+
+
 }

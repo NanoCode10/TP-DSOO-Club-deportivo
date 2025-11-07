@@ -49,6 +49,16 @@
             txtTel = new TextBox();
             lblEmail = new Label();
             txtEmail = new TextBox();
+            tcListados = new TabControl();
+            tabSocios = new TabPage();
+            dgvSocios = new DataGridView();
+            tabNoSocios = new TabPage();
+            dgvNoSocios = new DataGridView();
+            tcListados.SuspendLayout();
+            tabSocios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvSocios).BeginInit();
+            tabNoSocios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvNoSocios).BeginInit();
             SuspendLayout();
             // 
             // txtNombre
@@ -65,7 +75,7 @@
             btnRegistrar.Cursor = Cursors.Hand;
             btnRegistrar.FlatStyle = FlatStyle.Flat;
             btnRegistrar.ForeColor = SystemColors.HighlightText;
-            btnRegistrar.Location = new Point(390, 383);
+            btnRegistrar.Location = new Point(406, 318);
             btnRegistrar.Name = "btnRegistrar";
             btnRegistrar.Size = new Size(202, 26);
             btnRegistrar.TabIndex = 8;
@@ -137,7 +147,7 @@
             txtDocumento.Location = new Point(154, 173);
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(182, 26);
-            txtDocumento.TabIndex = 3;
+            txtDocumento.TabIndex = 4;
             // 
             // lblTipoDocumento
             // 
@@ -156,13 +166,13 @@
             cboTipoDocumento.Location = new Point(512, 176);
             cboTipoDocumento.Name = "cboTipoDocumento";
             cboTipoDocumento.Size = new Size(121, 23);
-            cboTipoDocumento.TabIndex = 4;
+            cboTipoDocumento.TabIndex = 5;
             // 
             // lblDatosAdicionales
             // 
             lblDatosAdicionales.AutoSize = true;
             lblDatosAdicionales.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblDatosAdicionales.Location = new Point(154, 240);
+            lblDatosAdicionales.Location = new Point(154, 221);
             lblDatosAdicionales.Name = "lblDatosAdicionales";
             lblDatosAdicionales.Size = new Size(152, 20);
             lblDatosAdicionales.TabIndex = 16;
@@ -172,7 +182,7 @@
             // 
             lblTipo.AutoSize = true;
             lblTipo.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTipo.Location = new Point(180, 305);
+            lblTipo.Location = new Point(183, 259);
             lblTipo.Name = "lblTipo";
             lblTipo.Size = new Size(47, 18);
             lblTipo.TabIndex = 17;
@@ -182,27 +192,27 @@
             // 
             cboTipo.FormattingEnabled = true;
             cboTipo.Items.AddRange(new object[] { "Socio", "No Socio" });
-            cboTipo.Location = new Point(235, 301);
+            cboTipo.Location = new Point(238, 255);
             cboTipo.Name = "cboTipo";
             cboTipo.Size = new Size(121, 23);
-            cboTipo.TabIndex = 5;
+            cboTipo.TabIndex = 6;
             cboTipo.Text = "Seleccionar...";
             // 
             // cboAptoFisico
             // 
             cboAptoFisico.FormattingEnabled = true;
             cboAptoFisico.Items.AddRange(new object[] { "Si", "No" });
-            cboAptoFisico.Location = new Point(487, 301);
+            cboAptoFisico.Location = new Point(490, 255);
             cboAptoFisico.Name = "cboAptoFisico";
             cboAptoFisico.Size = new Size(76, 23);
-            cboAptoFisico.TabIndex = 6;
+            cboAptoFisico.TabIndex = 7;
             cboAptoFisico.Text = "Seleccionar...";
             // 
             // lblAptoFísico
             // 
             lblAptoFísico.AutoSize = true;
             lblAptoFísico.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblAptoFísico.Location = new Point(390, 305);
+            lblAptoFísico.Location = new Point(393, 259);
             lblAptoFísico.Name = "lblAptoFísico";
             lblAptoFísico.Size = new Size(87, 18);
             lblAptoFísico.TabIndex = 21;
@@ -214,10 +224,10 @@
             btnLimpiar.Cursor = Cursors.Hand;
             btnLimpiar.FlatStyle = FlatStyle.Flat;
             btnLimpiar.ForeColor = SystemColors.Desktop;
-            btnLimpiar.Location = new Point(154, 383);
+            btnLimpiar.Location = new Point(170, 318);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(202, 26);
-            btnLimpiar.TabIndex = 7;
+            btnLimpiar.TabIndex = 10;
             btnLimpiar.Text = "Limpiar";
             btnLimpiar.UseVisualStyleBackColor = false;
             btnLimpiar.Click += btnLimpiar_Click;
@@ -238,7 +248,7 @@
             txtTel.Location = new Point(451, 131);
             txtTel.Name = "txtTel";
             txtTel.Size = new Size(182, 26);
-            txtTel.TabIndex = 23;
+            txtTel.TabIndex = 3;
             // 
             // lblEmail
             // 
@@ -256,13 +266,74 @@
             txtEmail.Location = new Point(154, 131);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(182, 26);
-            txtEmail.TabIndex = 22;
+            txtEmail.TabIndex = 2;
+            // 
+            // tcListados
+            // 
+            tcListados.Controls.Add(tabSocios);
+            tcListados.Controls.Add(tabNoSocios);
+            tcListados.Location = new Point(0, 350);
+            tcListados.Name = "tcListados";
+            tcListados.SelectedIndex = 0;
+            tcListados.Size = new Size(772, 200);
+            tcListados.TabIndex = 26;
+            // 
+            // tabSocios
+            // 
+            tabSocios.Controls.Add(dgvSocios);
+            tabSocios.Location = new Point(4, 24);
+            tabSocios.Name = "tabSocios";
+            tabSocios.Padding = new Padding(3);
+            tabSocios.Size = new Size(764, 172);
+            tabSocios.TabIndex = 0;
+            tabSocios.Text = "Socios";
+            tabSocios.UseVisualStyleBackColor = true;
+            // 
+            // dgvSocios
+            // 
+            dgvSocios.AllowUserToAddRows = false;
+            dgvSocios.AllowUserToDeleteRows = false;
+            dgvSocios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSocios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSocios.Location = new Point(3, 6);
+            dgvSocios.MultiSelect = false;
+            dgvSocios.Name = "dgvSocios";
+            dgvSocios.RowHeadersVisible = false;
+            dgvSocios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvSocios.Size = new Size(755, 150);
+            dgvSocios.TabIndex = 0;
+            // 
+            // tabNoSocios
+            // 
+            tabNoSocios.Controls.Add(dgvNoSocios);
+            tabNoSocios.Location = new Point(4, 24);
+            tabNoSocios.Name = "tabNoSocios";
+            tabNoSocios.Padding = new Padding(3);
+            tabNoSocios.Size = new Size(764, 172);
+            tabNoSocios.TabIndex = 1;
+            tabNoSocios.Text = "No Socios";
+            tabNoSocios.UseVisualStyleBackColor = true;
+            // 
+            // dgvNoSocios
+            // 
+            dgvNoSocios.AllowUserToAddRows = false;
+            dgvNoSocios.AllowUserToDeleteRows = false;
+            dgvNoSocios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvNoSocios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvNoSocios.Location = new Point(6, 6);
+            dgvNoSocios.MultiSelect = false;
+            dgvNoSocios.Name = "dgvNoSocios";
+            dgvNoSocios.RowHeadersVisible = false;
+            dgvNoSocios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvNoSocios.Size = new Size(752, 150);
+            dgvNoSocios.TabIndex = 0;
             // 
             // frmRegistrar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(784, 461);
+            ClientSize = new Size(784, 562);
+            Controls.Add(tcListados);
             Controls.Add(lblTel);
             Controls.Add(txtTel);
             Controls.Add(lblEmail);
@@ -289,6 +360,11 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Club deportivo  -Registrar  persona";
             Load += frmAgregarPersona_Load;
+            tcListados.ResumeLayout(false);
+            tabSocios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvSocios).EndInit();
+            tabNoSocios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvNoSocios).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -316,5 +392,10 @@
         private TextBox txtTel;
         private Label lblEmail;
         private TextBox txtEmail;
+        private TabControl tcListados;
+        private TabPage tabSocios;
+        private TabPage tabNoSocios;
+        private DataGridView dgvSocios;
+        private DataGridView dgvNoSocios;
     }
 }

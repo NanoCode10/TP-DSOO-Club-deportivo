@@ -1,4 +1,5 @@
 ﻿using ClubDeportivo.Forms.cobrar_cuota;
+using ClubDeportivo.Forms.config;
 using ClubDeportivo.Forms.registrar;
 
 namespace ClubDeportivo.Forms.menu_home
@@ -8,12 +9,19 @@ namespace ClubDeportivo.Forms.menu_home
         public frmMenuPrincipal()
         {
             InitializeComponent();
+            
         }
+
 
         private void frmMenuPrincipal_Load(object sender, EventArgs e)
         {
             btnCobrarActividad.Enabled = false;
             btnListado.Enabled = false;
+        }
+        private void miConexion_Click(object sender, EventArgs e)
+        {
+            using var fm = new FmConfigConexion();
+            fm.ShowDialog(this);
         }
 
         private void btnRegistro_Click(object sender, EventArgs e)

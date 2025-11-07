@@ -2,10 +2,10 @@
 
 namespace ClubDeportivo.Entidades
 {
-    
+
     /// Datos necesarios para imprimir la credencial del socio.
-  
-    public sealed class SocioCardData
+
+    public class SocioCardData
     {
         public int CodSocio { get; init; }
         public string NombreApellido { get; init; } = "";

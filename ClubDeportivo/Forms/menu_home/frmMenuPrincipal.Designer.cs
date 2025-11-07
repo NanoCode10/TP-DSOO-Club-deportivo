@@ -32,6 +32,9 @@
             btnCobrarCuota = new Button();
             btnCobrarActividad = new Button();
             btnListado = new Button();
+            msPrincipal = new MenuStrip();
+            miConexion = new ToolStripMenuItem();
+            msPrincipal.SuspendLayout();
             SuspendLayout();
             // 
             // btnRegistro
@@ -76,6 +79,23 @@
             btnListado.Text = "Listado de vencimientos";
             btnListado.UseVisualStyleBackColor = true;
             // 
+            // msPrincipal
+            // 
+            msPrincipal.Items.AddRange(new ToolStripItem[] { miConexion });
+            msPrincipal.Location = new Point(0, 0);
+            msPrincipal.Name = "msPrincipal";
+            msPrincipal.Size = new Size(784, 24);
+            msPrincipal.TabIndex = 4;
+            msPrincipal.Text = "menuStrip1";
+            // 
+            // miConexion
+            // 
+            miConexion.Alignment = ToolStripItemAlignment.Right;
+            miConexion.Name = "miConexion";
+            miConexion.Size = new Size(70, 20);
+            miConexion.Text = "Conexión";
+            miConexion.Click += miConexion_Click;
+            // 
             // frmMenuPrincipal
             // 
             AutoValidate = AutoValidate.EnablePreventFocusChange;
@@ -84,12 +104,17 @@
             Controls.Add(btnCobrarActividad);
             Controls.Add(btnCobrarCuota);
             Controls.Add(btnRegistro);
+            Controls.Add(msPrincipal);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MainMenuStrip = msPrincipal;
             Name = "frmMenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Club deportivo - Menú principal";
             Load += frmMenuPrincipal_Load;
+            msPrincipal.ResumeLayout(false);
+            msPrincipal.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -99,5 +124,7 @@
         private Button btnCobrarCuota;
         private Button btnCobrarActividad;
         private Button btnListado;
+        private MenuStrip msPrincipal;
+        private ToolStripMenuItem miConexion;
     }
 }

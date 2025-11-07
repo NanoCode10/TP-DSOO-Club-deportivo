@@ -131,8 +131,73 @@ CREATE PROCEDURE registrar_cuota(
 BEGIN
     INSERT INTO cuota (codSocio, fechaVencimiento, monto, fechaPago)
     VALUES (pIdSocio, pFechaVencimiento, pMonto, pFechaPago);
+
+     IF pFechaPago IS NOT NULL THEN
+        UPDATE socio 
+        SET estado = 1
+        WHERE codSocio = pIdSocio;
+    END IF;
 END //
 
+DELIMITER //
+
+CREATE PROCEDURE pagar_cuota(
+    IN pIdSocio INT,
+    IN pFechaPago DATE
+)
+BEGIN
+    DECLARE vFechaVencimiento DATE;
+    DECLARE vDiasAtraso INT;
+
+    -- Obtener la última cuota del socio
+    SELECT fechaVencimiento
+    INTO vFechaVencimiento
+    FROM cuota
+    WHERE codSocio = pIdSocio
+    ORDER BY fechaVencimiento DESC
+    LIMIT 1;
+
+    -- Calcular los días de atraso (si los hay)
+    SET vDiasAtraso = DATEDIFF(pFechaPago, vFechaVencimiento);
+
+    -- Si el socio pagó después del vencimiento
+    IF vDiasAtraso > 0 THEN
+        -- Registrar el pago con fecha de pago
+        UPDATE cuota
+        SET fechaPago = pFechaPago,
+            estado = 'Pagada'
+        WHERE codSocio = pIdSocio
+          AND estado = 'Pendiente';
+
+        -- Crear nueva cuota con vencimiento desde el día siguiente
+        INSERT INTO cuota (codSocio, fechaVencimiento, monto, estado)
+        VALUES (
+            pIdSocio,
+            DATE_ADD(vFechaVencimiento, INTERVAL 1 MONTH), -- nuevo periodo
+            (SELECT monto FROM cuota WHERE codSocio = pIdSocio ORDER BY idCuota DESC LIMIT 1),
+            'Pendiente'
+        );
+
+        -- Activar nuevamente al socio
+        UPDATE socio
+        SET estado = 1
+        WHERE codSocio = pIdSocio;
+
+    ELSE
+        -- Si paga dentro del vencimiento, solo se marca como pagada
+        UPDATE cuota
+        SET fechaPago = pFechaPago,
+            estado = 'Pagada'
+        WHERE codSocio = pIdSocio
+          AND estado = 'Pendiente';
+
+        UPDATE socio
+        SET estado = 1
+        WHERE codSocio = pIdSocio;
+    END IF;
+END //
+
+DELIMITER ;
 
 
 -- Lista todos las personas por tipo
@@ -190,3 +255,59 @@ END //
 
 DELIMITER ; 
 
+-- === ACTUALIZAR ===
+DELIMITER $$
+CREATE PROCEDURE actualizar_persona(
+    IN  pId            INT,
+    IN  pNombre        VARCHAR(20),
+    IN  pApellido      VARCHAR(20),
+    IN  pTipoDocumento VARCHAR(20),
+    IN  pDocumento     VARCHAR(20),
+    IN  pEmail         VARCHAR(100),
+    IN  pTel           VARCHAR(20),
+    IN  pFichaMedica   BIT,
+    IN  pTipo          VARCHAR(20),   -- "Socio" / "NoSocio" (por si querés usarlo luego)
+    OUT rta            INT
+)
+BEGIN
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+    BEGIN
+        SET rta = -1;
+    END;
+
+    UPDATE persona
+       SET nombre        = pNombre,
+           apellido      = pApellido,
+           tipoDocumento = pTipoDocumento,
+           documento     = pDocumento,
+           email         = pEmail,
+           tel           = pTel,
+           fichaMedica   = pFichaMedica
+     WHERE codPersona    = pId;
+
+    SET rta = ROW_COUNT();  -- 0=no cambió, 1=ok
+END$$
+DELIMITER ;
+
+-- === ELIMINAR ===
+DELIMITER $$
+CREATE PROCEDURE eliminar_persona(
+    IN  pId  INT,
+    OUT rta  INT
+)
+BEGIN
+  -- atrapamos el error específico
+    DECLARE CONTINUE HANDLER FOR 1451
+    BEGIN
+        SET rta = -1451;   
+    END;
+
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+    BEGIN
+        SET rta = -1;
+    END;
+
+    DELETE FROM persona WHERE codPersona = pId;
+    SET rta = ROW_COUNT();
+END$$
+DELIMITER ;
