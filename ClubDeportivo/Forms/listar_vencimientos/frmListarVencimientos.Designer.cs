@@ -34,10 +34,10 @@
             label3 = new Label();
             dataGridView1 = new DataGridView();
             codCuota = new DataGridViewTextBoxColumn();
-            Monto = new DataGridViewTextBoxColumn();
+            monto = new DataGridViewTextBoxColumn();
             codSocio = new DataGridViewTextBoxColumn();
-            Nombre = new DataGridViewTextBoxColumn();
-            Apellido = new DataGridViewTextBoxColumn();
+            nombre = new DataGridViewTextBoxColumn();
+            apellido = new DataGridViewTextBoxColumn();
             documento = new DataGridViewTextBoxColumn();
             email = new DataGridViewTextBoxColumn();
             tel = new DataGridViewTextBoxColumn();
@@ -84,7 +84,7 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { codCuota, Monto, codSocio, Nombre, Apellido, documento, email, tel });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { codCuota, monto, codSocio, nombre, apellido, documento, email, tel });
             dataGridView1.Dock = DockStyle.Bottom;
             dataGridView1.Location = new Point(0, 262);
             dataGridView1.Name = "dataGridView1";
@@ -96,25 +96,25 @@
             codCuota.HeaderText = "Código de cuota";
             codCuota.Name = "codCuota";
             // 
-            // Monto
+            // monto
             // 
-            Monto.HeaderText = "Monto";
-            Monto.Name = "Monto";
+            monto.HeaderText = "Monto";
+            monto.Name = "monto";
             // 
             // codSocio
             // 
             codSocio.HeaderText = "Código del socio";
             codSocio.Name = "codSocio";
             // 
-            // Nombre
+            // nombre
             // 
-            Nombre.HeaderText = "Nombre";
-            Nombre.Name = "Nombre";
+            nombre.HeaderText = "Nombre";
+            nombre.Name = "nombre";
             // 
-            // Apellido
+            // apellido
             // 
-            Apellido.HeaderText = "Apellido";
-            Apellido.Name = "Apellido";
+            apellido.HeaderText = "Apellido";
+            apellido.Name = "apellido";
             // 
             // documento
             // 
@@ -156,10 +156,10 @@
         private Label label3;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn codCuota;
-        private DataGridViewTextBoxColumn Monto;
+        private DataGridViewTextBoxColumn monto;
         private DataGridViewTextBoxColumn codSocio;
-        private DataGridViewTextBoxColumn Nombre;
-        private DataGridViewTextBoxColumn Apellido;
+        private DataGridViewTextBoxColumn nombre;
+        private DataGridViewTextBoxColumn apellido;
         private DataGridViewTextBoxColumn documento;
         private DataGridViewTextBoxColumn email;
         private DataGridViewTextBoxColumn tel;

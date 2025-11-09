@@ -37,6 +37,7 @@ namespace ClubDeportivo.Forms.listar_vencimientos
             label2.Text = $"Fecha de hoy: {fechaHoy.ToString("dd/MM/yyyy")}";
             
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoGenerateColumns = false;
         }
 
         private void frmListarVencimientos_Resize(object sender, EventArgs e)
@@ -54,9 +55,17 @@ namespace ClubDeportivo.Forms.listar_vencimientos
 
             if (tablaVenc.Rows.Count > 0)
             {
-                dataGridView1.AutoGenerateColumns = false;
                 dataGridView1.Refresh(); 
                 dataGridView1.DataSource = tablaVenc;
+                //añado el mapeo de columnas
+                dataGridView1.Columns["codCuota"].DataPropertyName = "codCuota";
+                dataGridView1.Columns["monto"].DataPropertyName = "monto";
+                dataGridView1.Columns["codSocio"].DataPropertyName = "codSocio";
+                dataGridView1.Columns["nombre"].DataPropertyName = "nombre";
+                dataGridView1.Columns["apellido"].DataPropertyName = "apellido";
+                dataGridView1.Columns["documento"].DataPropertyName = "documento";
+                dataGridView1.Columns["email"].DataPropertyName = "email";
+                dataGridView1.Columns["tel"].DataPropertyName = "tel";
             }
             else
             {
