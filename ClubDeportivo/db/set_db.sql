@@ -102,7 +102,7 @@ BEGIN
 
         SET vCodPersona = LAST_INSERT_ID();
 
-        -- Insertar seg˙n tipo y devolver el ID del tipo correspondiente
+        -- Insertar seg√∫n tipo y devolver el ID del tipo correspondiente
         IF pTipo = 'Socio' THEN
             INSERT INTO socio(codPersona, estado) VALUES (vCodPersona, 0);
             SET vCodSocio = LAST_INSERT_ID();
@@ -138,8 +138,8 @@ BEGIN
         WHERE codSocio = pIdSocio;
     END IF;
 END //
-
 DELIMITER //
+
 
 CREATE PROCEDURE pagar_cuota(
     IN pIdSocio INT,
@@ -149,7 +149,7 @@ BEGIN
     DECLARE vFechaVencimiento DATE;
     DECLARE vDiasAtraso INT;
 
-    -- Obtener la ˙ltima cuota del socio
+    -- Obtener la √∫ltima cuota del socio
     SELECT fechaVencimiento
     INTO vFechaVencimiento
     FROM cuota
@@ -157,10 +157,10 @@ BEGIN
     ORDER BY fechaVencimiento DESC
     LIMIT 1;
 
-    -- Calcular los dÌas de atraso (si los hay)
+    -- Calcular los d√≠as de atraso (si los hay)
     SET vDiasAtraso = DATEDIFF(pFechaPago, vFechaVencimiento);
 
-    -- Si el socio pagÛ despuÈs del vencimiento
+    -- Si el socio pag√≥ despu√©s del vencimiento
     IF vDiasAtraso > 0 THEN
         -- Registrar el pago con fecha de pago
         UPDATE cuota
@@ -169,7 +169,7 @@ BEGIN
         WHERE codSocio = pIdSocio
           AND estado = 'Pendiente';
 
-        -- Crear nueva cuota con vencimiento desde el dÌa siguiente
+        -- Crear nueva cuota con vencimiento desde el d√≠a siguiente
         INSERT INTO cuota (codSocio, fechaVencimiento, monto, estado)
         VALUES (
             pIdSocio,
@@ -196,11 +196,13 @@ BEGIN
         WHERE codSocio = pIdSocio;
     END IF;
 END //
-
 DELIMITER ;
+-- fin procedure cuota
+
 
 
 -- Lista todos las personas por tipo
+DELIMITER // 
 CREATE PROCEDURE listar_personas_por_tipo(
     IN pTipo VARCHAR(20)
 )
@@ -215,7 +217,7 @@ BEGIN
             p.tel,
             p.tipoDocumento,
             p.documento,
-            CASE WHEN p.fichaMedica = 1 THEN 'SÌ' ELSE 'No' END AS AptoFisico,
+            CASE WHEN p.fichaMedica = 1 THEN 'S√≠' ELSE 'No' END AS AptoFisico,
             s.estado AS EstadoSocio,
             c.fechaVencimiento,
             c.estado AS EstadoCuota
@@ -242,17 +244,15 @@ BEGIN
             p.tel,
             p.tipoDocumento,
             p.documento,
-            CASE WHEN p.fichaMedica = 1 THEN 'SÌ' ELSE 'No' END AS AptoFisico
+            CASE WHEN p.fichaMedica = 1 THEN 'S√≠' ELSE 'No' END AS AptoFisico
         FROM no_socio n
         INNER JOIN persona p ON p.codPersona = n.codPersona
         ORDER BY n.codNoSocio ASC;
 
     ELSE
-        SELECT 'Tipo no v·lido. Usar "Socio" o "NoSocio".' AS Mensaje;
+        SELECT 'Tipo no v√°lido. Usar "Socio" o "NoSocio".' AS Mensaje;
     END IF;
 END //
-
-
 DELIMITER ; 
 
 -- === ACTUALIZAR ===
@@ -266,7 +266,7 @@ CREATE PROCEDURE actualizar_persona(
     IN  pEmail         VARCHAR(100),
     IN  pTel           VARCHAR(20),
     IN  pFichaMedica   BIT,
-    IN  pTipo          VARCHAR(20),   -- "Socio" / "NoSocio" (por si querÈs usarlo luego)
+    IN  pTipo          VARCHAR(20),   -- "Socio" / "NoSocio" (por si quer√©s usarlo luego)
     OUT rta            INT
 )
 BEGIN
@@ -285,7 +285,7 @@ BEGIN
            fichaMedica   = pFichaMedica
      WHERE codPersona    = pId;
 
-    SET rta = ROW_COUNT();  -- 0=no cambiÛ, 1=ok
+    SET rta = ROW_COUNT();  -- 0=no cambi√≥, 1=ok
 END$$
 DELIMITER ;
 
@@ -296,7 +296,7 @@ CREATE PROCEDURE eliminar_persona(
     OUT rta  INT
 )
 BEGIN
-  -- atrapamos el error especÌfico
+  -- atrapamos el error espec√≠fico
     DECLARE CONTINUE HANDLER FOR 1451
     BEGIN
         SET rta = -1451;   
@@ -311,3 +311,22 @@ BEGIN
     SET rta = ROW_COUNT();
 END$$
 DELIMITER ;
+
+-- =========== LISTAR VENCIMIENTOS DE HOY ============== --
+-- lista cuotas que vencen en un la fecha pasada por par√°metro, junto a informaci√≥n de contacto del socio.
+-- si hay que modificar la l√≥gica se hace y ya.
+DELIMITER //
+CREATE PROCEDURE listar_vencimientos(IN fecha DATE)
+BEGIN 
+SELECT c.codCuota, monto, c.codSocio, nombre, apellido, documento, email, tel 
+FROM persona p 
+INNER JOIN socio s ON p.codPersona = s.codPersona
+INNER JOIN cuota c ON s.codSocio = c.codSocio
+WHERE fechaVencimiento = fecha 
+AND 
+c.estado = 'Pendiente'
+ORDER BY apellido;
+END
+//
+DELIMITER ;
+ 

@@ -78,13 +78,14 @@
             btnListado.TabIndex = 3;
             btnListado.Text = "Listado de vencimientos";
             btnListado.UseVisualStyleBackColor = true;
+            btnListado.Click += btnListado_Click;
             // 
             // msPrincipal
             // 
             msPrincipal.Items.AddRange(new ToolStripItem[] { miConexion });
             msPrincipal.Location = new Point(0, 0);
             msPrincipal.Name = "msPrincipal";
-            msPrincipal.Size = new Size(784, 24);
+            msPrincipal.Size = new Size(784, 29);
             msPrincipal.TabIndex = 4;
             msPrincipal.Text = "menuStrip1";
             // 
@@ -92,7 +93,7 @@
             // 
             miConexion.Alignment = ToolStripItemAlignment.Right;
             miConexion.Name = "miConexion";
-            miConexion.Size = new Size(70, 20);
+            miConexion.Size = new Size(87, 25);
             miConexion.Text = "Conexión";
             miConexion.Click += miConexion_Click;
             // 
