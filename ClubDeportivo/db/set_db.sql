@@ -69,9 +69,9 @@ begin
 			and Activo = 1; 
 end 
 //
+DELIMITER ;
 
 DELIMITER //
-
 CREATE PROCEDURE crear_persona(
     IN pNombre VARCHAR(50),
     IN pApellido VARCHAR(50),
@@ -118,6 +118,7 @@ BEGIN
         SET rta = 0; -- Ya existe
     END IF;
 END //
+DELIMITER ;
 
 -- Registrar cuota
 DELIMITER //
@@ -138,9 +139,10 @@ BEGIN
         WHERE codSocio = pIdSocio;
     END IF;
 END //
+DELIMITER ;
+
+
 DELIMITER //
-
-
 CREATE PROCEDURE pagar_cuota(
     IN pIdSocio INT,
     IN pFechaPago DATE
@@ -148,6 +150,7 @@ CREATE PROCEDURE pagar_cuota(
 BEGIN
     DECLARE vFechaVencimiento DATE;
     DECLARE vDiasAtraso INT;
+    DECLARE vMonto DECIMAL(10,2);
 
     -- Obtener la última cuota del socio
     SELECT fechaVencimiento
@@ -170,11 +173,12 @@ BEGIN
           AND estado = 'Pendiente';
 
         -- Crear nueva cuota con vencimiento desde el día siguiente
+        SELECT monto INTO vMonto FROM cuota WHERE codSocio = pIdSocio ORDER BY codCuota DESC LIMIT 1;
         INSERT INTO cuota (codSocio, fechaVencimiento, monto, estado)
         VALUES (
             pIdSocio,
             DATE_ADD(vFechaVencimiento, INTERVAL 1 MONTH), -- nuevo periodo
-            (SELECT monto FROM cuota WHERE codSocio = pIdSocio ORDER BY idCuota DESC LIMIT 1),
+            vMonto,
             'Pendiente'
         );
 
@@ -329,3 +333,15 @@ ORDER BY apellido;
 END
 //
 DELIMITER ;
+
+
+-- PROBLEMAS: 
+-- no genera cuotas si paga en tiempo y forma
+-- si no enetendí mal el código, y por como parece comportarse al probarlo, si paga atrasado, genera las cuotas para que venzan en en mes siguiente del vencimiento de la cuota morosa mas vieja
+-- o sea, si su última cuota es de mayo, por ejemplo, y el socio paga la deuda en noviembre, la proxima cuota se genera para vencer en junio.
+
+-- en la consigna no aclaraba que tiene que resetearse la fecha de vencimiento si paga moroso? (o sea, 30 dias luego del dia de regularización?)
+-- adnuve repasando el codigo con una ia, me tiró también que el ORDER BY idCuota en el INSERT de pagar_cuota, y al probar el procedure, tiera error... (ARREGLADO)
+-- también mencionó que el subquery en ese mismo inseret es supuestamente innecesario. y me tira error de que no se puede usar la misma tabla cuota en el subquery y en el update, 
+-- capaz si se guarda el valor de monto en una variable antes del update sirva (ARREGLADO)
+DROP PROCEDURE pagar_cuota;
