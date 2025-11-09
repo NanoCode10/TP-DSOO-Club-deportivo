@@ -345,3 +345,34 @@ DELIMITER ;
 -- también mencionó que el subquery en ese mismo inseret es supuestamente innecesario. y me tira error de que no se puede usar la misma tabla cuota en el subquery y en el update, 
 -- capaz si se guarda el valor de monto en una variable antes del update sirva (ARREGLADO)
 DROP PROCEDURE pagar_cuota;
+
+
+CREATE TABLE IF NOT EXISTS actividad (
+    codActividad INT AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(100),
+    CONSTRAINT pk_actividad PRIMARY KEY (codActividad)
+);
+
+-- Carga inicial de actividades típicas de un club deportivo
+INSERT INTO actividad (nombre, descripcion) VALUES
+('Fútbol', 'Entrenamientos y torneos de fútbol para todas las edades'),
+('Tenis', 'Clases y torneos en canchas de polvo de ladrillo o cemento'),
+('Natación', 'Escuela de natación y entrenamiento libre en piscina'),
+('Básquet', 'Entrenamientos y torneos recreativos y competitivos'),
+('Vóley', 'Entrenamientos mixtos y participación en ligas locales'),
+('Hockey', 'Hockey sobre césped y pista para distintas categorías'),
+('Gimnasia', 'Clases de gimnasia general y localizada'),
+('Yoga', 'Clases grupales de yoga y estiramiento'),
+('Pilates', 'Clases de pilates suelo y con implementos'),
+('Atletismo', 'Entrenamientos de carrera, salto y lanzamiento'),
+('Patín artístico', 'Escuela de patín artístico y entrenamiento libre'),
+('Artes marciales', 'Karate, Taekwondo y otras disciplinas'),
+('Spinning', 'Clases de ciclismo indoor'),
+('Zumba', 'Clases de baile fitness y ritmo latino'),
+('Ajedrez', 'Talleres y torneos de ajedrez recreativo'),
+('Boxeo', 'Entrenamientos y acondicionamiento físico'),
+('Funcional', 'Entrenamientos funcionales y de alta intensidad'),
+('Escuelita deportiva', 'Actividades recreativas para niños'),
+('Rugby', 'Entrenamientos y torneos de rugby amateur'),
+('Handball', 'Clases y torneos internos de handball');

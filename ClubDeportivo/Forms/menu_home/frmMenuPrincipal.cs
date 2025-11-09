@@ -1,7 +1,8 @@
-﻿using ClubDeportivo.Forms.cobrar_cuota;
+﻿using ClubDeportivo.Forms.actividades;
+using ClubDeportivo.Forms.cobrar_cuota;
 using ClubDeportivo.Forms.config;
-using ClubDeportivo.Forms.registrar;
 using ClubDeportivo.Forms.listar_vencimientos;
+using ClubDeportivo.Forms.registrar;
 
 namespace ClubDeportivo.Forms.menu_home
 {
@@ -16,7 +17,7 @@ namespace ClubDeportivo.Forms.menu_home
 
         private void frmMenuPrincipal_Load(object sender, EventArgs e)
         {
-            btnCobrarActividad.Enabled = false;
+
         }
         private void miConexion_Click(object sender, EventArgs e)
         {
@@ -38,8 +39,14 @@ namespace ClubDeportivo.Forms.menu_home
 
         private void btnListado_Click(object sender, EventArgs e)
         {
-            frmListarVencimientos frmListado = new frmListarVencimientos(); 
+            frmListarVencimientos frmListado = new frmListarVencimientos();
             frmListado.ShowDialog();
+        }
+
+        private void btnCobrarActividad_Click(object sender, EventArgs e)
+        {
+            frmActividades frmAct = new frmActividades();
+            frmAct.ShowDialog();
         }
     }
 }

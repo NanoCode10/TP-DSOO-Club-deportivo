@@ -68,6 +68,7 @@
             btnCobrarActividad.TabIndex = 2;
             btnCobrarActividad.Text = "Cobrar actividad";
             btnCobrarActividad.UseVisualStyleBackColor = true;
+            btnCobrarActividad.Click += btnCobrarActividad_Click;
             // 
             // btnListado
             // 
@@ -85,7 +86,7 @@
             msPrincipal.Items.AddRange(new ToolStripItem[] { miConexion });
             msPrincipal.Location = new Point(0, 0);
             msPrincipal.Name = "msPrincipal";
-            msPrincipal.Size = new Size(784, 29);
+            msPrincipal.Size = new Size(784, 24);
             msPrincipal.TabIndex = 4;
             msPrincipal.Text = "menuStrip1";
             // 
@@ -93,7 +94,7 @@
             // 
             miConexion.Alignment = ToolStripItemAlignment.Right;
             miConexion.Name = "miConexion";
-            miConexion.Size = new Size(87, 25);
+            miConexion.Size = new Size(69, 20);
             miConexion.Text = "Conexión";
             miConexion.Click += miConexion_Click;
             // 
