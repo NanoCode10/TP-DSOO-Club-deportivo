@@ -34,7 +34,10 @@
             picLogin = new PictureBox();
             lblIniciarSesion = new Label();
             btnIngresar = new Button();
+            msPrincipal = new MenuStrip();
+            miConexion = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)picLogin).BeginInit();
+            msPrincipal.SuspendLayout();
             SuspendLayout();
             // 
             // txtUsuario
@@ -94,12 +97,30 @@
             btnIngresar.UseVisualStyleBackColor = false;
             btnIngresar.Click += btnLogin_Click;
             // 
+            // msPrincipal
+            // 
+            msPrincipal.Items.AddRange(new ToolStripItem[] { miConexion });
+            msPrincipal.Location = new Point(0, 0);
+            msPrincipal.Name = "msPrincipal";
+            msPrincipal.Size = new Size(584, 24);
+            msPrincipal.TabIndex = 5;
+            msPrincipal.Text = "menuStrip1";
+            // 
+            // miConexion
+            // 
+            miConexion.Alignment = ToolStripItemAlignment.Right;
+            miConexion.Name = "miConexion";
+            miConexion.Size = new Size(70, 20);
+            miConexion.Text = "Conexión";
+            miConexion.Click += miConexion_Click;
+            // 
             // frmLogin
             // 
             AcceptButton = btnIngresar;
             AutoScaleDimensions = new SizeF(8F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(584, 361);
+            Controls.Add(msPrincipal);
             Controls.Add(btnIngresar);
             Controls.Add(lblIniciarSesion);
             Controls.Add(picLogin);
@@ -111,8 +132,9 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Club deportivo - Login";
             Load += frmLogin_Load;
-            Shown += frmLogin_Shown;
             ((System.ComponentModel.ISupportInitialize)picLogin).EndInit();
+            msPrincipal.ResumeLayout(false);
+            msPrincipal.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -124,5 +146,7 @@
         private PictureBox picLogin;
         private Label lblIniciarSesion;
         private Button btnIngresar;
+        private MenuStrip msPrincipal;
+        private ToolStripMenuItem miConexion;
     }
 }

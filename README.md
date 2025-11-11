@@ -4,4 +4,9 @@
 
 ### El trabajo hecho con C# del Grupo1 para el Club deportivo
 
+![Captura de la app (WinForms.Login)](docs/captura_winforms.login.png)
+
+
+
+
 ![Captura de la app (WinForms)](docs/captura_winforms.png)

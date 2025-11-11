@@ -1,5 +1,6 @@
-﻿using ClubDeportivo.Forms.menu_home;
-using System.Data;
+﻿using System.Data;
+using ClubDeportivo.Forms.config;
+using ClubDeportivo.Forms.menu_home;
 
 
 namespace ClubDeportivo.Forms
@@ -33,6 +34,11 @@ namespace ClubDeportivo.Forms
 
         }
 
+        private void miConexion_Click(object sender, EventArgs e)
+        {
+            using var fm = new FmConfigConexion();
+            fm.ShowDialog(this);
+        }
 
         private void txtPassword_Enter(object sender, EventArgs e)
         {
@@ -77,11 +83,6 @@ namespace ClubDeportivo.Forms
             
         }
 
-        private void frmLogin_Shown(object sender, EventArgs e)
-        {
-            txtUsuario.Focus();      // pone el cursor
-            txtUsuario.SelectAll();  // opcional: selecciona el texto placeholder si hubiera
-        }
 
     }
 }

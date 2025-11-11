@@ -1,9 +1,9 @@
-drop database if exists clubdeportivo;
-create database clubdeportivo; 
-use clubDeportivo;
+drop database if exists clubdeportivoAACMP;
+create database clubdeportivoAACMP; 
+use clubDeportivoAACMP;
 
 
-/*Conexión local:
+/*Conexiï¿½n local:
 Host: localhost
 Database name: clubdeportivo
 Database user: root
