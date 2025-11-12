@@ -118,7 +118,7 @@ namespace ClubDeportivo.Forms.registrar
                 {
                     IdSocio = codigoDevuelto,
                     FechaVencimiento = DateTime.Now.Date,
-                    Monto = 10000f,
+                    Monto = 25000f,
                     FechaPago = null
                 };
 

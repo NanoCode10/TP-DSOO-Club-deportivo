@@ -164,7 +164,7 @@ BEGIN
      ORDER BY c.fechaVencimiento DESC
      LIMIT 1;
 
-    IF vMonto   IS NULL THEN SET vMonto   := 10000.00; END IF;   -- default si no hay historial
+    IF vMonto   IS NULL THEN SET vMonto   := 25000.00; END IF;   -- default si no hay historial
     IF vUltVenc IS NULL THEN SET vUltVenc := pFechaPago; END IF; -- primera vez
 
     -- Anclamos el vencimiento al día que venía usando el socio (o al día del pago)

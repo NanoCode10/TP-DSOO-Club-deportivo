@@ -1,5 +1,6 @@
 ﻿using ClubDeportivo.Datos;
 using ClubDeportivo.Entidades;
+using ClubDeportivo.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -111,6 +112,21 @@ namespace ClubDeportivo.Forms.actividades
             CargarActividades();
         }
 
+        private void GenerarComprobanteActividad(int idNoSocio, string nombreNoSocio, string actividad, decimal monto)
+        {
+            var comprobanteData = new ComprobanteActividadData
+            {
+                NumeroComprobante = $"ACT-{DateTime.Now:yyyyMMddHHmmss}",
+                NombreApellido = nombreNoSocio,
+                Actividad = actividad,
+                Monto = monto,
+                FechaPago = DateTime.Now,
+                MedioPago = "Efectivo" // O el medio de pago que uses
+            };
+
+            var printer = new ComprobantePrinter();
+            printer.Print(comprobanteData, preview: true);
+        }
         private void btnPagoActividad_Click(object sender, EventArgs e)
         {
             try
@@ -129,6 +145,9 @@ namespace ClubDeportivo.Forms.actividades
                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+                string nombreNoSocio = cboNoSocio.Text;
+                string nombreActividad = cboActividad.Text;
 
                 // Obtener el costo de la actividad
                 var actividadesDatos = new Actividades();
@@ -150,6 +169,8 @@ namespace ClubDeportivo.Forms.actividades
                 {
                     MessageBox.Show($"Pago eventual registrado exitosamente\nMonto: ${monto:N2}",
                                    "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    GenerarComprobanteActividad(idNoSocio, nombreNoSocio, nombreActividad, monto);
+
                     // Limpiar selecciones
                     cboActividad.SelectedIndex = 0;
                     cboNoSocio.SelectedIndex = 0;

@@ -60,7 +60,7 @@
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(75, 23);
             btnActualizar.TabIndex = 0;
-            btnActualizar.Text = "Actulizar";
+            btnActualizar.Text = "Actualizar";
             btnActualizar.UseVisualStyleBackColor = true;
             btnActualizar.Click += btnActualizar_Click;
             // 

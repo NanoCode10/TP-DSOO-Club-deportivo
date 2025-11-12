@@ -1,6 +1,7 @@
 ﻿using ClubDeportivo.Entidades;
 using ClubDeportivo.Forms.cobrar_cuota;
 using ClubDeportivo.Forms.menu_home;
+using ClubDeportivo.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -67,11 +68,16 @@ namespace ClubDeportivo.Forms.opciones_pago
                 MessageBoxIcon.Information
             );
 
+            if (rtaCuota.Contains("éxito") || rtaCuota.Contains("pagada")) // Ajusta según tu respuesta
+            {
+                GenerarComprobante();
+            }
+
             // cerrar otros formularios...
             foreach (Form frm in Application.OpenForms.Cast<Form>().ToList())
             {
-                if (frm.Name != "frmMenuPrincipal")
-                    frm.Close();
+                if (frm.Name != "frmMenuPrincipal" && frm.Name != "frmLogin")
+                { frm.Close(); }
             }
 
             // obtener referencia al menu principal (si existe)
@@ -96,5 +102,21 @@ namespace ClubDeportivo.Forms.opciones_pago
             nuevoFrm.TopMost = false;
 
         }
+        private void GenerarComprobante()
+        {
+            var comprobanteData = new ComprobanteActividadData
+            {
+                NumeroComprobante = $"ACT-{DateTime.Now:yyyyMMddHHmmss}",
+                NombreApellido = _nombreSocio,
+                Actividad = "Cuota Social",
+                Monto = 25000.00m, // Cambia por el monto real esta hardcodeada en el sql
+                FechaPago = DateTime.Now,
+                MedioPago = cboMedioPago.SelectedItem?.ToString() ?? "Efectivo"
+            };
+
+            var printer = new ComprobantePrinter();
+            printer.Print(comprobanteData, preview: true);
+        }
+
     }
 }
