@@ -114,8 +114,8 @@ namespace ClubDeportivo.Forms.cobrar_cuota
                         btnImprimirCarnet.Enabled = false;
                         btnPago.Enabled = true;
                     }*/
-                    string estadoCuota = fila["EstadoCuota"].ToString();
-                    bool cuotaPendiente = estadoCuota == "Pendiente" || estadoCuota == "PendienteHoy";
+                    string estadoCuota = fila["EstadoCuota"]?.ToString() ?? string.Empty;
+                    bool cuotaPendiente = estadoCuota == "Pendiente";
 
                     if (estadoSocio && !cuotaPendiente)
                     {

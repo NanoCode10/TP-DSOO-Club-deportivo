@@ -247,8 +247,7 @@ BEGIN
       s.estado AS EstadoSocio,
       ultima.fechaVencimiento AS fechaVencimiento,
       CASE 
-        WHEN ultima.fechaVencimiento = CURDATE() THEN 'PendienteHoy'
-        WHEN ultima.fechaVencimiento < CURDATE() THEN 'Pendiente' 
+        WHEN ultima.fechaVencimiento <= CURDATE() THEN 'Pendiente' 
         ELSE 'Pagada'
       END AS EstadoCuota
     FROM socio s
@@ -357,7 +356,7 @@ SELECT c.codCuota, monto, c.codSocio, nombre, apellido, documento, email, tel
 FROM persona p 
 INNER JOIN socio s ON p.codPersona = s.codPersona
 INNER JOIN cuota c ON s.codSocio = c.codSocio
-WHERE fechaVencimiento = fecha 
+WHERE fechaVencimiento <= fecha 
 AND 
 c.estado = 'Pendiente'
 ORDER BY apellido;
