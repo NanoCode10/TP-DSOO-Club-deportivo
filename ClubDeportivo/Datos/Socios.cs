@@ -9,7 +9,7 @@ namespace ClubDeportivo.Datos
     {
         public string Nuevo_Socio(E_Socio socio)
         {
-            string? salida = "";
+            string salida = string.Empty;
 
             MySqlConnection sqlCon = new MySqlConnection();
             try
@@ -40,7 +40,7 @@ namespace ClubDeportivo.Datos
                 //Recién acá abro la conexión y ejeq
                 sqlCon.Open();
                 comando.ExecuteNonQuery();
-                salida = Convert.ToString(ParCodigo.Value);
+                salida = Convert.ToString(ParCodigo.Value) ?? string.Empty;
             }
             catch (Exception ex)
             {

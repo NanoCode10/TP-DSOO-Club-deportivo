@@ -4,8 +4,8 @@ use clubDeportivoAACMP;
 
 CREATE TABLE IF NOT EXISTS persona (
     codPersona     INT AUTO_INCREMENT,
-    nombre         VARCHAR(20),
-    apellido       VARCHAR(20),
+    nombre         VARCHAR(50),
+    apellido       VARCHAR(50),
     documento      VARCHAR(20),
     email          VARCHAR(40),
     tel            VARCHAR(20),
@@ -223,7 +223,7 @@ BEGIN
   SET pTipo = LOWER(REPLACE(pTipo,' ',''));
 
   IF pTipo='socio' THEN
-    SELECT
+    /*SELECT
       s.codSocio, p.codPersona, p.nombre, p.apellido, p.email, p.tel,
       p.tipoDocumento, p.documento,
       CASE WHEN p.fichaMedica=1 THEN 'Sí' ELSE 'No' END AS AptoFisico,
@@ -238,6 +238,33 @@ BEGIN
              MAX(CASE WHEN c.estado='Pagada' AND c.fechaVencimiento>=CURDATE() THEN 1 ELSE 0 END) AS tienePagoVigente
       FROM cuota c GROUP BY c.codSocio
     ) v ON v.codSocio=s.codSocio
+    ORDER BY p.apellido, p.nombre;*/
+  
+    SELECT
+      s.codSocio, p.codPersona, p.nombre, p.apellido, p.email, p.tel,
+      p.tipoDocumento, p.documento,
+      CASE WHEN p.fichaMedica=1 THEN 'Sí' ELSE 'No' END AS AptoFisico,
+      s.estado AS EstadoSocio,
+      ultima.fechaVencimiento AS fechaVencimiento,
+      CASE 
+        WHEN ultima.fechaVencimiento = CURDATE() THEN 'PendienteHoy'
+        WHEN ultima.fechaVencimiento < CURDATE() THEN 'Pendiente' 
+        ELSE 'Pagada'
+      END AS EstadoCuota
+    FROM socio s
+    JOIN persona p ON p.codPersona=s.codPersona AND p.activo=1
+    LEFT JOIN (
+      SELECT 
+        codSocio,
+        fechaVencimiento,
+        estado
+      FROM cuota 
+      WHERE (codSocio, fechaVencimiento) IN (
+        SELECT codSocio, MAX(fechaVencimiento)
+        FROM cuota 
+        GROUP BY codSocio
+      )
+    ) ultima ON ultima.codSocio = s.codSocio
     ORDER BY p.apellido, p.nombre;
 
   ELSEIF pTipo='nosocio' THEN
@@ -396,22 +423,35 @@ INSERT INTO actividad (nombre, descripcion, costo) VALUES
 ('Rugby', 'Entrenamientos y torneos de rugby amateur', 8700.00),
 ('Handball', 'Clases y torneos internos de handball', 7000.00);
 
-/* Tienen errores al tratar de pagar y faltan datos hay q revisar
--- Carga inicial de socios y no socios de prueba
+-- Carga inicial de socios y no socios de prueba CORREGIDA
 INSERT INTO persona (nombre, apellido, documento, email, tel, tipoDocumento, fichaMedica) VALUES 
 ('Juan', 'Pérez', '30123456', 'juan.perez@email.com', '1156789012', 'DNI', TRUE),
 ('María', 'Gómez', '28987654', 'maria.gomez@email.com', '1154321098', 'DNI', TRUE),
-('Carlos', 'López', '35234567', 'carlos.lopez@email.com', '1167890123', 'DNI', FALSE),
+('Carlos', 'López', '35234567', 'carlos.lopez@email.com', '1167890123', 'DNI', TRUE),
 ('Ana', 'Martínez', '27456789', 'ana.martinez@email.com', '1145678901', 'DNI', TRUE),
 ('Roberto', 'Díaz', '33456789', 'roberto.diaz@email.com', '1178901234', 'DNI', TRUE);
 
 -- Insertar socios (asumiendo que las personas se insertaron con IDs 1-5)
 INSERT INTO socio (codPersona, estado) VALUES 
-(1, 0),
-(2, 0), 
-(3, 0),
-(4, 0),
-(5, 0);
+(1, 1),
+(2, 1), 
+(3, 1),
+(4, 1),
+(5, 1);
+
+-- Carga inicial de cuotas para socios con las fechas modificadas
+INSERT INTO cuota (codSocio, fechaVencimiento, monto, fechaPago, estado) VALUES 
+(1, '2025-11-13', 25000.00, '2025-11-13', 'Pagada'),
+(1, '2025-12-13', 25000.00, NULL, 'Pendiente'),
+(2, '2025-11-13', 25000.00, NULL, 'Pendiente'),
+(3, '2025-11-13', 25000.00, NULL, 'Pendiente'),
+(4, '2025-11-13', 25000.00, '2025-11-13', 'Pagada'),
+(4, '2025-12-13', 25000.00, NULL, 'Pendiente'),
+(5, '2025-11-14', 25000.00, NULL, 'Pendiente');
+
+
+
+
 
 INSERT INTO persona (nombre, apellido, documento, email, tel, tipoDocumento, fichaMedica) VALUES 
 ('Laura', 'Fernández', '28765432', 'laura.fernandez@email.com', '1156789432', 'DNI', FALSE),
@@ -423,4 +463,9 @@ INSERT INTO no_socio (codPersona) VALUES
 (6),
 (7),
 (8);
-*/
+
+-- Datos de carga inicial para pago_eventual
+INSERT INTO pago_eventual (id_no_socio, monto, fecha) VALUES 
+(1, 7500.00, '2024-12-01'),
+(2, 8200.00, '2024-12-02'),
+(3, 9800.00, '2024-12-03');

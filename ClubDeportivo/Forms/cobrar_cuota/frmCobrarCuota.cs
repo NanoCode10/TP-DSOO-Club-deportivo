@@ -104,7 +104,7 @@ namespace ClubDeportivo.Forms.cobrar_cuota
                     lblFechaVencimiento.Text += fechaVenc.ToString("dd/MM/yyyy");
                     bool estadoSocio = Convert.ToBoolean(fila["estadoSocio"]);
                     lblEstado.Text += estadoSocio ? "Activo" : "Inactivo";
-                    if (estadoSocio)
+                    /*if (estadoSocio)
                     {
                         btnImprimirCarnet.Enabled = true;
                         btnPago.Enabled = false;
@@ -113,8 +113,20 @@ namespace ClubDeportivo.Forms.cobrar_cuota
                     {
                         btnImprimirCarnet.Enabled = false;
                         btnPago.Enabled = true;
-                    }
+                    }*/
+                    string estadoCuota = fila["EstadoCuota"].ToString();
+                    bool cuotaPendiente = estadoCuota == "Pendiente" || estadoCuota == "PendienteHoy";
 
+                    if (estadoSocio && !cuotaPendiente)
+                    {
+                        btnImprimirCarnet.Enabled = true;  // Socio activo y al día → puede imprimir carnet
+                        btnPago.Enabled = false;           // No necesita pagar
+                    }
+                    else
+                    {
+                        btnImprimirCarnet.Enabled = false; // No puede imprimir carnet
+                        btnPago.Enabled = true;            // Puede pagar
+                    }
                     _card = new SocioCardData
                     {
                         CodSocio = codSocio,
