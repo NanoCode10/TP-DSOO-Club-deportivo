@@ -34,6 +34,7 @@
             label3 = new Label();
             dataGridView1 = new DataGridView();
             codCuota = new DataGridViewTextBoxColumn();
+            fechaVencimiento = new DataGridViewTextBoxColumn();
             monto = new DataGridViewTextBoxColumn();
             codSocio = new DataGridViewTextBoxColumn();
             nombre = new DataGridViewTextBoxColumn();
@@ -46,30 +47,27 @@
             // 
             // label1
             // 
-            label1.Location = new Point(264, 26);
-            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Location = new Point(339, 36);
             label1.Name = "label1";
-            label1.Size = new Size(311, 15);
+            label1.Size = new Size(400, 21);
             label1.TabIndex = 0;
             label1.Text = "Listado de cuotas vencidas al día de la fecha";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
-            label2.Location = new Point(264, 59);
-            label2.Margin = new Padding(2, 0, 2, 0);
+            label2.Location = new Point(339, 83);
             label2.Name = "label2";
-            label2.Size = new Size(311, 15);
+            label2.Size = new Size(400, 21);
             label2.TabIndex = 1;
             label2.Text = "Fecha de hoy: N/A";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // button1
             // 
-            button1.Location = new Point(329, 84);
-            button1.Margin = new Padding(2, 2, 2, 2);
+            button1.Location = new Point(423, 118);
             button1.Name = "button1";
-            button1.Size = new Size(176, 34);
+            button1.Size = new Size(226, 48);
             button1.TabIndex = 2;
             button1.Text = "Generar Listado";
             button1.UseVisualStyleBackColor = true;
@@ -77,29 +75,34 @@
             // 
             // label3
             // 
-            label3.Location = new Point(264, 136);
-            label3.Margin = new Padding(2, 0, 2, 0);
+            label3.AccessibleRole = AccessibleRole.None;
+            label3.Location = new Point(352, 187);
             label3.Name = "label3";
-            label3.Size = new Size(311, 19);
+            label3.Size = new Size(360, 27);
             label3.TabIndex = 3;
+            label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { codCuota, monto, codSocio, nombre, apellido, documento, email, tel });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { codCuota, fechaVencimiento, monto, codSocio, nombre, apellido, documento, email, tel });
             dataGridView1.Dock = DockStyle.Bottom;
-            dataGridView1.Location = new Point(0, 187);
-            dataGridView1.Margin = new Padding(2, 2, 2, 2);
+            dataGridView1.Location = new Point(0, 261);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(815, 134);
+            dataGridView1.Size = new Size(1048, 188);
             dataGridView1.TabIndex = 4;
             // 
             // codCuota
             // 
             codCuota.HeaderText = "Código de cuota";
             codCuota.Name = "codCuota";
+            // 
+            // fechaVencimiento
+            // 
+            fechaVencimiento.HeaderText = "Fecha de vencimiento";
+            fechaVencimiento.Name = "fechaVencimiento";
             // 
             // monto
             // 
@@ -138,15 +141,14 @@
             // 
             // frmListarVencimientos
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(815, 321);
+            ClientSize = new Size(1048, 449);
             Controls.Add(dataGridView1);
             Controls.Add(label3);
             Controls.Add(button1);
             Controls.Add(label2);
             Controls.Add(label1);
-            Margin = new Padding(2, 2, 2, 2);
             Name = "frmListarVencimientos";
             Text = "Form1";
             Load += frmListarVencimientos_Load;
@@ -162,6 +164,7 @@
         private Label label3;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn codCuota;
+        private DataGridViewTextBoxColumn fechaVencimiento;
         private DataGridViewTextBoxColumn monto;
         private DataGridViewTextBoxColumn codSocio;
         private DataGridViewTextBoxColumn nombre;

@@ -60,6 +60,7 @@ namespace ClubDeportivo.Forms.listar_vencimientos
                 //añado el mapeo de columnas
                 dataGridView1.Columns["codCuota"].DataPropertyName = "codCuota";
                 dataGridView1.Columns["monto"].DataPropertyName = "monto";
+                dataGridView1.Columns["fechaVencimiento"].DataPropertyName = "fechaVencimiento";
                 dataGridView1.Columns["codSocio"].DataPropertyName = "codSocio";
                 dataGridView1.Columns["nombre"].DataPropertyName = "nombre";
                 dataGridView1.Columns["apellido"].DataPropertyName = "apellido";

@@ -347,35 +347,24 @@ END //
 DELIMITER ;
 
 -- =========== LISTAR VENCIMIENTOS DE HOY ============== --
--- lista cuotas que vencen en un la fecha pasada por parámetro, junto a información de contacto del socio.
--- si hay que modificar la lógica se hace y ya.
+-- lista cuotas con vencimiento anterior o igual a la fecha pasada por parámetro, junto a información de contacto del socio.
+
 DELIMITER //
 CREATE PROCEDURE listar_vencimientos(IN fecha DATE)
 BEGIN 
-SELECT c.codCuota, monto, c.codSocio, nombre, apellido, documento, email, tel 
+SELECT c.codCuota, c.fechaVencimiento, monto, c.codSocio, nombre, apellido, documento, email, tel 
 FROM persona p 
 INNER JOIN socio s ON p.codPersona = s.codPersona
 INNER JOIN cuota c ON s.codSocio = c.codSocio
 WHERE fechaVencimiento <= fecha 
 AND 
 c.estado = 'Pendiente'
-ORDER BY apellido;
+ORDER BY c.fechaVencimiento;
 END
 //
 DELIMITER ;
 
-
--- PROBLEMAS: 
--- no genera cuotas si paga en tiempo y forma
--- si no enetendí mal el código, y por como parece comportarse al probarlo, si paga atrasado, genera las cuotas para que venzan en en mes siguiente del vencimiento de la cuota morosa mas vieja
--- o sea, si su última cuota es de mayo, por ejemplo, y el socio paga la deuda en noviembre, la proxima cuota se genera para vencer en junio.
-
--- en la consigna no aclaraba que tiene que resetearse la fecha de vencimiento si paga moroso? (o sea, 30 dias luego del dia de regularización?)
--- adnuve repasando el codigo con una ia, me tiró también que el ORDER BY idCuota en el INSERT de pagar_cuota, y al probar el procedure, tiera error... (ARREGLADO)
--- también mencionó que el subquery en ese mismo inseret es supuestamente innecesario. y me tira error de que no se puede usar la misma tabla cuota en el subquery y en el update, 
--- capaz si se guarda el valor de monto en una variable antes del update sirva (ARREGLADO)
--- DROP PROCEDURE pagar_cuota;
-
+-- DROP PROCEDURE  listar_vencimientos;
 
 
 
